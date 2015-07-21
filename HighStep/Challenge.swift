@@ -13,7 +13,12 @@ import ConvenienceKit
 
 class Challenge : PFObject, PFSubclassing {
 
-    @NSManaged var user: PFUser?
+    @NSManaged var fromUser: PFUser
+    @NSManaged var toUser: PFUser
+    @NSManaged var stepCountFromUser: Int
+    @NSManaged var stepCountToUser: Int
+    @NSManaged var startDate: NSDate
+    @NSManaged var endDate: NSDate
 
     
     //MARK: PFSubclassing Protocol

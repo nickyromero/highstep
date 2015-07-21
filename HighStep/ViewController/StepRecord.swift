@@ -12,10 +12,10 @@ import ConvenienceKit
 
 class StepRecord : PFObject, PFSubclassing {
     
-    @NSManaged var userName: PFUser?
-    @NSManaged var stepCount: PFObject?
-    @NSManaged var startDate: PFObject?
-    @NSManaged var endDate: PFObject?
+     @NSManaged var userName: PFUser
+     @NSManaged var stepCount: Int
+     @NSManaged var startDate: NSDate
+     @NSManaged var endDate: NSDate
 
     
     //MARK: PFSubclassing Protocol
@@ -35,6 +35,9 @@ class StepRecord : PFObject, PFSubclassing {
             self.registerSubclass()
         }
     }
+    
+   
+    
     
     
     

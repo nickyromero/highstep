@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="glN-YA-9PX">
-                                <rect key="frame" x="225" y="499" width="150" height="30"/>
+                                <rect key="frame" x="225" y="548" width="150" height="30"/>
                                 <state key="normal" title="Authorize Health Data">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -134,18 +134,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sdr-pj-lhm">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sdr-pj-lhm">
                                 <rect key="frame" x="16" y="275" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="W2G-QB-ual">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="W2G-QB-ual">
                                 <rect key="frame" x="16" y="313" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="913-vr-Zec">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="913-vr-Zec">
                                 <rect key="frame" x="268" y="400" width="64" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="VYa-X6-Uym"/>
+                                </constraints>
                                 <state key="normal" title="Sign Up?">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -153,7 +156,7 @@
                                     <action selector="signUpButton:" destination="GCN-bG-DIJ" eventType="touchUpInside" id="ZSM-s5-RrV"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MBp-iJ-kkb">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MBp-iJ-kkb">
                                 <rect key="frame" x="259" y="351" width="82" height="41"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="41" id="KSQ-rI-fe5"/>
@@ -173,13 +176,14 @@
                             <constraint firstItem="sdr-pj-lhm" firstAttribute="top" secondItem="TrT-0a-mfb" secondAttribute="bottom" constant="211" id="0I3-Es-Zd5"/>
                             <constraint firstItem="W2G-QB-ual" firstAttribute="leading" secondItem="sdr-pj-lhm" secondAttribute="leading" id="1yF-qV-KLt"/>
                             <constraint firstItem="MBp-iJ-kkb" firstAttribute="centerX" secondItem="W2G-QB-ual" secondAttribute="centerX" id="70C-gB-HSy"/>
+                            <constraint firstItem="9vA-TP-fsT" firstAttribute="top" secondItem="913-vr-Zec" secondAttribute="bottom" constant="170" id="Auf-Mb-Gk4"/>
+                            <constraint firstItem="913-vr-Zec" firstAttribute="top" secondItem="MBp-iJ-kkb" secondAttribute="bottom" constant="8" symbolic="YES" id="G3o-vd-2Tg"/>
                             <constraint firstItem="W2G-QB-ual" firstAttribute="trailing" secondItem="sdr-pj-lhm" secondAttribute="trailing" id="MUA-Ww-2or"/>
                             <constraint firstItem="W2G-QB-ual" firstAttribute="top" secondItem="sdr-pj-lhm" secondAttribute="bottom" constant="8" symbolic="YES" id="NfH-0l-PEj"/>
                             <constraint firstItem="sdr-pj-lhm" firstAttribute="trailing" secondItem="GIN-8f-VsB" secondAttribute="trailingMargin" id="Oic-aA-kN0"/>
-                            <constraint firstItem="913-vr-Zec" firstAttribute="centerX" secondItem="MBp-iJ-kkb" secondAttribute="centerX" id="Vxm-V6-aoD"/>
                             <constraint firstItem="sdr-pj-lhm" firstAttribute="leading" secondItem="GIN-8f-VsB" secondAttribute="leadingMargin" id="ax7-0I-3Nb"/>
                             <constraint firstItem="MBp-iJ-kkb" firstAttribute="top" secondItem="W2G-QB-ual" secondAttribute="bottom" constant="8" symbolic="YES" id="fGS-Qs-ffb"/>
-                            <constraint firstItem="913-vr-Zec" firstAttribute="top" secondItem="MBp-iJ-kkb" secondAttribute="bottom" constant="8" symbolic="YES" id="zzC-ea-f0m"/>
+                            <constraint firstItem="913-vr-Zec" firstAttribute="centerX" secondItem="MBp-iJ-kkb" secondAttribute="centerX" id="xIL-YO-Nis"/>
                         </constraints>
                     </view>
                     <connections>

@@ -19,8 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
         Challenge.initialize()
         StepRecord.initialize()
+        
         
         Parse.setApplicationId("o5Yo0n4HFvutcZpONHhHxyg5IY77anSLCnVEMLiQ", clientKey: "NqVWyXCydta3jKAYagPxI1nBf818OO7li8wApZFo")
         
@@ -28,6 +30,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let user = PFUser.currentUser() {
             println("Log in successful")
+            var stepRecord = StepRecord()
+            stepRecord.userName = user
+            stepRecord.stepCount = 11
+            stepRecord.startDate = NSDate()
+//            stepRecord.endDate = NSDate()
+            stepRecord.save()
+            
         } else {
             println("No logged in user :(")
         }
