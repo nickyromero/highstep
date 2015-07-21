@@ -1,0 +1,578 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A4CC3F96D3F44AE8D19BC70B /* Pods_HighStep.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 639D9052BAB495ABB4EA48D1 /* Pods_HighStep.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F37E56341B5D6A7200F52356 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37E56331B5D6A7200F52356 /* HealthKitManager.swift */; };
+		F37E56361B5D789200F52356 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37E56351B5D789200F52356 /* SignUpViewController.swift */; };
+		F38B21001B59C0CA0038453C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B20FF1B59C0CA0038453C /* AppDelegate.swift */; };
+		F38B21031B59C0CA0038453C /* HighStep.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F38B21011B59C0CA0038453C /* HighStep.xcdatamodeld */; };
+		F38B21081B59C0CA0038453C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F38B21061B59C0CA0038453C /* Main.storyboard */; };
+		F38B210A1B59C0CA0038453C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F38B21091B59C0CA0038453C /* Images.xcassets */; };
+		F38B210D1B59C0CA0038453C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F38B210B1B59C0CA0038453C /* LaunchScreen.xib */; };
+		F38B21191B59C0CA0038453C /* HighStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B21181B59C0CA0038453C /* HighStepTests.swift */; };
+		F38B21241B59C0D30038453C /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F38B21231B59C0D30038453C /* HealthKit.framework */; };
+		F396494C1B5E0E1A0006A066 /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F396494B1B5E0E1A0006A066 /* Challenge.swift */; };
+		F3A3C1201B5ED3E200984000 /* StepRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A3C11F1B5ED3E200984000 /* StepRecord.swift */; };
+		F3BE77A61B59C56500EFFBA3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BE77A51B59C56500EFFBA3 /* ProfileViewController.swift */; };
+		F3BE77A81B59C57600EFFBA3 /* ChallengesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BE77A71B59C57600EFFBA3 /* ChallengesViewController.swift */; };
+		F3BE77AE1B5B13B500EFFBA3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BE77AD1B5B13B500EFFBA3 /* LoginViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F38B21131B59C0CA0038453C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F38B20F21B59C0CA0038453C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F38B20F91B59C0CA0038453C;
+			remoteInfo = HighStep;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		32C6FD391C175215EF3C38FF /* Pods-HighStep.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HighStep.release.xcconfig"; path = "Pods/Target Support Files/Pods-HighStep/Pods-HighStep.release.xcconfig"; sourceTree = "<group>"; };
+		639D9052BAB495ABB4EA48D1 /* Pods_HighStep.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HighStep.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C35EB8731E563794F3C9D37C /* Pods-HighStep.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HighStep.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HighStep/Pods-HighStep.debug.xcconfig"; sourceTree = "<group>"; };
+		F37E56331B5D6A7200F52356 /* HealthKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		F37E56351B5D789200F52356 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		F38B20FA1B59C0CA0038453C /* HighStep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HighStep.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F38B20FE1B59C0CA0038453C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F38B20FF1B59C0CA0038453C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F38B21021B59C0CA0038453C /* HighStep.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HighStep.xcdatamodel; sourceTree = "<group>"; };
+		F38B21071B59C0CA0038453C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F38B21091B59C0CA0038453C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F38B210C1B59C0CA0038453C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		F38B21121B59C0CA0038453C /* HighStepTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HighStepTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F38B21171B59C0CA0038453C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F38B21181B59C0CA0038453C /* HighStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighStepTests.swift; sourceTree = "<group>"; };
+		F38B21221B59C0D30038453C /* HighStep.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HighStep.entitlements; sourceTree = "<group>"; };
+		F38B21231B59C0D30038453C /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		F396494B1B5E0E1A0006A066 /* Challenge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
+		F3A3C11F1B5ED3E200984000 /* StepRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StepRecord.swift; path = ViewController/StepRecord.swift; sourceTree = "<group>"; };
+		F3BE77A51B59C56500EFFBA3 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		F3BE77A71B59C57600EFFBA3 /* ChallengesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesViewController.swift; sourceTree = "<group>"; };
+		F3BE77AD1B5B13B500EFFBA3 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F38B20F71B59C0CA0038453C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F38B21241B59C0D30038453C /* HealthKit.framework in Frameworks */,
+				A4CC3F96D3F44AE8D19BC70B /* Pods_HighStep.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F38B210F1B59C0CA0038453C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		05EBE640B0EFBDC0D78323AE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				639D9052BAB495ABB4EA48D1 /* Pods_HighStep.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4B142996A5229DF83B3D5A36 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C35EB8731E563794F3C9D37C /* Pods-HighStep.debug.xcconfig */,
+				32C6FD391C175215EF3C38FF /* Pods-HighStep.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F38B20F11B59C0CA0038453C = {
+			isa = PBXGroup;
+			children = (
+				F38B21231B59C0D30038453C /* HealthKit.framework */,
+				F38B20FC1B59C0CA0038453C /* HighStep */,
+				F38B21151B59C0CA0038453C /* HighStepTests */,
+				F38B20FB1B59C0CA0038453C /* Products */,
+				4B142996A5229DF83B3D5A36 /* Pods */,
+				05EBE640B0EFBDC0D78323AE /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F38B20FB1B59C0CA0038453C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F38B20FA1B59C0CA0038453C /* HighStep.app */,
+				F38B21121B59C0CA0038453C /* HighStepTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F38B20FC1B59C0CA0038453C /* HighStep */ = {
+			isa = PBXGroup;
+			children = (
+				F38B20FF1B59C0CA0038453C /* AppDelegate.swift */,
+				F38B21061B59C0CA0038453C /* Main.storyboard */,
+				F396494B1B5E0E1A0006A066 /* Challenge.swift */,
+				F3A3C11F1B5ED3E200984000 /* StepRecord.swift */,
+				F37E56331B5D6A7200F52356 /* HealthKitManager.swift */,
+				F38B21271B59C1BB0038453C /* ViewController */,
+				F38B21251B59C1650038453C /* More */,
+				F38B20FD1B59C0CA0038453C /* Supporting Files */,
+			);
+			path = HighStep;
+			sourceTree = "<group>";
+		};
+		F38B20FD1B59C0CA0038453C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F38B20FE1B59C0CA0038453C /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F38B21151B59C0CA0038453C /* HighStepTests */ = {
+			isa = PBXGroup;
+			children = (
+				F38B21181B59C0CA0038453C /* HighStepTests.swift */,
+				F38B21161B59C0CA0038453C /* Supporting Files */,
+			);
+			path = HighStepTests;
+			sourceTree = "<group>";
+		};
+		F38B21161B59C0CA0038453C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F38B21171B59C0CA0038453C /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F38B21251B59C1650038453C /* More */ = {
+			isa = PBXGroup;
+			children = (
+				F38B21091B59C0CA0038453C /* Images.xcassets */,
+				F38B210B1B59C0CA0038453C /* LaunchScreen.xib */,
+				F38B21221B59C0D30038453C /* HighStep.entitlements */,
+				F38B21011B59C0CA0038453C /* HighStep.xcdatamodeld */,
+			);
+			name = More;
+			sourceTree = "<group>";
+		};
+		F38B21271B59C1BB0038453C /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F3BE77A51B59C56500EFFBA3 /* ProfileViewController.swift */,
+				F3BE77A71B59C57600EFFBA3 /* ChallengesViewController.swift */,
+				F3BE77AD1B5B13B500EFFBA3 /* LoginViewController.swift */,
+				F37E56351B5D789200F52356 /* SignUpViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F38B20F91B59C0CA0038453C /* HighStep */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F38B211C1B59C0CA0038453C /* Build configuration list for PBXNativeTarget "HighStep" */;
+			buildPhases = (
+				64B9BF0944D5BBAFD7BB34CB /* Check Pods Manifest.lock */,
+				F38B20F61B59C0CA0038453C /* Sources */,
+				F38B20F71B59C0CA0038453C /* Frameworks */,
+				F38B20F81B59C0CA0038453C /* Resources */,
+				4E4A2E29DA370DBA26578CC0 /* Embed Pods Frameworks */,
+				5AE5A9CD385DFD6B6510BF1A /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HighStep;
+			productName = HighStep;
+			productReference = F38B20FA1B59C0CA0038453C /* HighStep.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F38B21111B59C0CA0038453C /* HighStepTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F38B211F1B59C0CA0038453C /* Build configuration list for PBXNativeTarget "HighStepTests" */;
+			buildPhases = (
+				F38B210E1B59C0CA0038453C /* Sources */,
+				F38B210F1B59C0CA0038453C /* Frameworks */,
+				F38B21101B59C0CA0038453C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F38B21141B59C0CA0038453C /* PBXTargetDependency */,
+			);
+			name = HighStepTests;
+			productName = HighStepTests;
+			productReference = F38B21121B59C0CA0038453C /* HighStepTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F38B20F21B59C0CA0038453C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = Maverick;
+				TargetAttributes = {
+					F38B20F91B59C0CA0038453C = {
+						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 7XVWUD53QB;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+						};
+					};
+					F38B21111B59C0CA0038453C = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = F38B20F91B59C0CA0038453C;
+					};
+				};
+			};
+			buildConfigurationList = F38B20F51B59C0CA0038453C /* Build configuration list for PBXProject "HighStep" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F38B20F11B59C0CA0038453C;
+			productRefGroup = F38B20FB1B59C0CA0038453C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F38B20F91B59C0CA0038453C /* HighStep */,
+				F38B21111B59C0CA0038453C /* HighStepTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F38B20F81B59C0CA0038453C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F38B21081B59C0CA0038453C /* Main.storyboard in Resources */,
+				F38B210D1B59C0CA0038453C /* LaunchScreen.xib in Resources */,
+				F38B210A1B59C0CA0038453C /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F38B21101B59C0CA0038453C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4E4A2E29DA370DBA26578CC0 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HighStep/Pods-HighStep-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5AE5A9CD385DFD6B6510BF1A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HighStep/Pods-HighStep-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		64B9BF0944D5BBAFD7BB34CB /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F38B20F61B59C0CA0038453C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3BE77AE1B5B13B500EFFBA3 /* LoginViewController.swift in Sources */,
+				F37E56361B5D789200F52356 /* SignUpViewController.swift in Sources */,
+				F3BE77A61B59C56500EFFBA3 /* ProfileViewController.swift in Sources */,
+				F37E56341B5D6A7200F52356 /* HealthKitManager.swift in Sources */,
+				F38B21001B59C0CA0038453C /* AppDelegate.swift in Sources */,
+				F3A3C1201B5ED3E200984000 /* StepRecord.swift in Sources */,
+				F396494C1B5E0E1A0006A066 /* Challenge.swift in Sources */,
+				F3BE77A81B59C57600EFFBA3 /* ChallengesViewController.swift in Sources */,
+				F38B21031B59C0CA0038453C /* HighStep.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F38B210E1B59C0CA0038453C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F38B21191B59C0CA0038453C /* HighStepTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F38B21141B59C0CA0038453C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F38B20F91B59C0CA0038453C /* HighStep */;
+			targetProxy = F38B21131B59C0CA0038453C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F38B21061B59C0CA0038453C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F38B21071B59C0CA0038453C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F38B210B1B59C0CA0038453C /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F38B210C1B59C0CA0038453C /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F38B211A1B59C0CA0038453C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F38B211B1B59C0CA0038453C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F38B211D1B59C0CA0038453C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C35EB8731E563794F3C9D37C /* Pods-HighStep.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HighStep/HighStep.entitlements;
+				INFOPLIST_FILE = HighStep/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F38B211E1B59C0CA0038453C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 32C6FD391C175215EF3C38FF /* Pods-HighStep.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HighStep/HighStep.entitlements;
+				INFOPLIST_FILE = HighStep/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		F38B21201B59C0CA0038453C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HighStepTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HighStep.app/HighStep";
+			};
+			name = Debug;
+		};
+		F38B21211B59C0CA0038453C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HighStepTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HighStep.app/HighStep";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F38B20F51B59C0CA0038453C /* Build configuration list for PBXProject "HighStep" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F38B211A1B59C0CA0038453C /* Debug */,
+				F38B211B1B59C0CA0038453C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F38B211C1B59C0CA0038453C /* Build configuration list for PBXNativeTarget "HighStep" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F38B211D1B59C0CA0038453C /* Debug */,
+				F38B211E1B59C0CA0038453C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F38B211F1B59C0CA0038453C /* Build configuration list for PBXNativeTarget "HighStepTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F38B21201B59C0CA0038453C /* Debug */,
+				F38B21211B59C0CA0038453C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F38B21011B59C0CA0038453C /* HighStep.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F38B21021B59C0CA0038453C /* HighStep.xcdatamodel */,
+			);
+			currentVersion = F38B21021B59C0CA0038453C /* HighStep.xcdatamodel */;
+			path = HighStep.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = F38B20F21B59C0CA0038453C /* Project object */;
+}

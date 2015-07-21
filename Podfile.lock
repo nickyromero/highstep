@@ -1,0 +1,20 @@
+PODS:
+  - Bolts/Tasks (1.2.0)
+  - ConvenienceKit (0.2.0)
+  - Parse (1.7.5.1):
+    - Bolts/Tasks (>= 1.2.0)
+  - ParseUI (1.1.4):
+    - Parse (~> 1.7)
+
+DEPENDENCIES:
+  - ConvenienceKit
+  - Parse
+  - ParseUI
+
+SPEC CHECKSUMS:
+  Bolts: d176cb1e0012175589e389a9db49b85e27787576
+  ConvenienceKit: 947032f82c3d419d107e0cbde1fcb725e9c7ed62
+  Parse: 7dd027063c30a010356ec67515aca7787512b0ef
+  ParseUI: d1228541b02a36a7354c8f47747f5f7a89cf1ff0
+
+COCOAPODS: 0.37.2
