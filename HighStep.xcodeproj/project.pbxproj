@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A4CC3F96D3F44AE8D19BC70B /* Pods_HighStep.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 639D9052BAB495ABB4EA48D1 /* Pods_HighStep.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F37055F31B5F050D00E285CF /* ChallengeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37055F21B5F050D00E285CF /* ChallengeTableViewCell.swift */; };
 		F37E56341B5D6A7200F52356 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37E56331B5D6A7200F52356 /* HealthKitManager.swift */; };
 		F37E56361B5D789200F52356 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37E56351B5D789200F52356 /* SignUpViewController.swift */; };
 		F38B21001B59C0CA0038453C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B20FF1B59C0CA0038453C /* AppDelegate.swift */; };
@@ -17,8 +18,6 @@
 		F38B210D1B59C0CA0038453C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F38B210B1B59C0CA0038453C /* LaunchScreen.xib */; };
 		F38B21191B59C0CA0038453C /* HighStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B21181B59C0CA0038453C /* HighStepTests.swift */; };
 		F38B21241B59C0D30038453C /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F38B21231B59C0D30038453C /* HealthKit.framework */; };
-		F396494C1B5E0E1A0006A066 /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F396494B1B5E0E1A0006A066 /* Challenge.swift */; };
-		F3A3C1201B5ED3E200984000 /* StepRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A3C11F1B5ED3E200984000 /* StepRecord.swift */; };
 		F3BE77A61B59C56500EFFBA3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BE77A51B59C56500EFFBA3 /* ProfileViewController.swift */; };
 		F3BE77A81B59C57600EFFBA3 /* ChallengesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BE77A71B59C57600EFFBA3 /* ChallengesViewController.swift */; };
 		F3BE77AE1B5B13B500EFFBA3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BE77AD1B5B13B500EFFBA3 /* LoginViewController.swift */; };
@@ -38,6 +37,7 @@
 		32C6FD391C175215EF3C38FF /* Pods-HighStep.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HighStep.release.xcconfig"; path = "Pods/Target Support Files/Pods-HighStep/Pods-HighStep.release.xcconfig"; sourceTree = "<group>"; };
 		639D9052BAB495ABB4EA48D1 /* Pods_HighStep.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HighStep.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C35EB8731E563794F3C9D37C /* Pods-HighStep.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HighStep.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HighStep/Pods-HighStep.debug.xcconfig"; sourceTree = "<group>"; };
+		F37055F21B5F050D00E285CF /* ChallengeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChallengeTableViewCell.swift; path = ../ChallengeTableViewCell.swift; sourceTree = "<group>"; };
 		F37E56331B5D6A7200F52356 /* HealthKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		F37E56351B5D789200F52356 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		F38B20FA1B59C0CA0038453C /* HighStep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HighStep.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,8 +52,6 @@
 		F38B21181B59C0CA0038453C /* HighStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighStepTests.swift; sourceTree = "<group>"; };
 		F38B21221B59C0D30038453C /* HighStep.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HighStep.entitlements; sourceTree = "<group>"; };
 		F38B21231B59C0D30038453C /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
-		F396494B1B5E0E1A0006A066 /* Challenge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
-		F3A3C11F1B5ED3E200984000 /* StepRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StepRecord.swift; path = ViewController/StepRecord.swift; sourceTree = "<group>"; };
 		F3BE77A51B59C56500EFFBA3 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F3BE77A71B59C57600EFFBA3 /* ChallengesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesViewController.swift; sourceTree = "<group>"; };
 		F3BE77AD1B5B13B500EFFBA3 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +94,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		F346479B1B5EFBC100987A19 /* Login/SignUp VC */ = {
+			isa = PBXGroup;
+			children = (
+				F3BE77AD1B5B13B500EFFBA3 /* LoginViewController.swift */,
+				F37E56351B5D789200F52356 /* SignUpViewController.swift */,
+			);
+			name = "Login/SignUp VC";
+			sourceTree = "<group>";
+		};
 		F38B20F11B59C0CA0038453C = {
 			isa = PBXGroup;
 			children = (
@@ -122,8 +129,6 @@
 			children = (
 				F38B20FF1B59C0CA0038453C /* AppDelegate.swift */,
 				F38B21061B59C0CA0038453C /* Main.storyboard */,
-				F396494B1B5E0E1A0006A066 /* Challenge.swift */,
-				F3A3C11F1B5ED3E200984000 /* StepRecord.swift */,
 				F37E56331B5D6A7200F52356 /* HealthKitManager.swift */,
 				F38B21271B59C1BB0038453C /* ViewController */,
 				F38B21251B59C1650038453C /* More */,
@@ -173,8 +178,8 @@
 			children = (
 				F3BE77A51B59C56500EFFBA3 /* ProfileViewController.swift */,
 				F3BE77A71B59C57600EFFBA3 /* ChallengesViewController.swift */,
-				F3BE77AD1B5B13B500EFFBA3 /* LoginViewController.swift */,
-				F37E56351B5D789200F52356 /* SignUpViewController.swift */,
+				F346479B1B5EFBC100987A19 /* Login/SignUp VC */,
+				F37055F21B5F050D00E285CF /* ChallengeTableViewCell.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -341,10 +346,9 @@
 				F3BE77A61B59C56500EFFBA3 /* ProfileViewController.swift in Sources */,
 				F37E56341B5D6A7200F52356 /* HealthKitManager.swift in Sources */,
 				F38B21001B59C0CA0038453C /* AppDelegate.swift in Sources */,
-				F3A3C1201B5ED3E200984000 /* StepRecord.swift in Sources */,
-				F396494C1B5E0E1A0006A066 /* Challenge.swift in Sources */,
 				F3BE77A81B59C57600EFFBA3 /* ChallengesViewController.swift in Sources */,
 				F38B21031B59C0CA0038453C /* HighStep.xcdatamodeld in Sources */,
+				F37055F31B5F050D00E285CF /* ChallengeTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
