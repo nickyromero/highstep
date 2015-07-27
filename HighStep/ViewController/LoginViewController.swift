@@ -32,6 +32,8 @@ class LoginViewController: UIViewController{
     }
 
     
+    // MARK: Actions
+    
     @IBAction func loginButton(sender: UIButton) {
         
         var username = self.usernameField.text
@@ -40,14 +42,13 @@ class LoginViewController: UIViewController{
 
         if (count(username) < 1 || count(password) < 1){
             
-            var alert = UIAlertView(title: "Invalid", message: "Username must be greater than 4 & Password must be greater than 5 characters", delegate: self, cancelButtonTitle: "OK")
+            var alert = UIAlertView(title: "Invalid", message: "Username must be greater than 1 & Password must be greater than 1 characters", delegate: self, cancelButtonTitle: "OK")
             alert.show()
             
         } else{
             self.actInd.startAnimating()
             
             PFUser.logInWithUsernameInBackground(username, password: password, block: {(user, error) -> Void in
-            
              self.actInd.stopAnimating()
                 
                 if((user) != nil ){
@@ -58,11 +59,16 @@ class LoginViewController: UIViewController{
                     self.performSegueWithIdentifier("loginComplete", sender: self)
                     
                 } else{
-                    var alert = UIAlertView(title: "Error", message: "\(error)", delegate: self, cancelButtonTitle: "OK")
+                    var alert = UIAlertView(title: "Error", message: "Hmm... that did not work, try again!", delegate: self, cancelButtonTitle: "OK")
                     alert.show()
+                    
+                    self.usernameField.text = ""
+                    self.passwordField.text = ""
+                    
+                    
+                    
                 }
             })
-            
         }
     }
     
@@ -70,5 +76,11 @@ class LoginViewController: UIViewController{
     @IBAction func signUpButton(sender: UIButton) {
         self.performSegueWithIdentifier("signup", sender: sender)
     }
+    
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+            self.view.endEditing(true)
+    }
+    
     
 }

@@ -31,6 +31,14 @@ class SignUpViewController: UIViewController {
     }
     
     
+    
+    //MARK: ACTIONS
+    
+    @IBAction func backToLoginButtton(sender: UIButton) {
+        
+        self.performSegueWithIdentifier("signupToLogin", sender: self)
+    }
+    
     @IBAction func signUpButton(sender: UIButton) {
         
         var username = self.usernameField.text
@@ -40,13 +48,21 @@ class SignUpViewController: UIViewController {
         
         if (count(username) < 1 || count(password) < 1 ){
             
-            var alert = UIAlertView(title: "Invalid", message: "Username must be greater than 4 & Password must be greater than 5 characters", delegate: self, cancelButtonTitle: "OK")
-            alert.show()
+            var alert = UIAlertView(title: "Invalid", message: "Username must be greater than 1 & Password must be greater than 1 characters", delegate: self, cancelButtonTitle: "OK")
             
-        } else if (count(email) < 4){
-            var alert = UIAlertView(title: "Invalid", message: "Please enter a valid email address", delegate: self, cancelButtonTitle: "OK")
             alert.show()
-        
+            self.usernameField.text = ""
+            self.passwordField.text = ""
+            self.emailField.text = ""
+            
+            
+        } else if (count(email) < 1){
+            var alert = UIAlertView(title: "Invalid", message: "Please enter a valid email address", delegate: self, cancelButtonTitle: "OK")
+            
+            alert.show()
+            self.usernameField.text = ""
+            self.passwordField.text = ""
+            self.emailField.text = ""
         }
         
         else{
@@ -62,16 +78,26 @@ class SignUpViewController: UIViewController {
                 self.actInd.stopAnimating()
                 
                 if ((error) != nil){
-                    var alert = UIAlertView(title: "Error", message: "\(error)", delegate: self, cancelButtonTitle: "OK")
+                    var alert = UIAlertView(title: "Error", message: "Hmm... that did not work, try again!", delegate: self, cancelButtonTitle: "OK")
+                    println("show error alert")
+                    
                     alert.show()
+                    self.usernameField.text = ""
+                    self.passwordField.text = ""
+                    self.emailField.text = ""
                     
                 } else{
                     var alert = UIAlertView(title: "Success", message: "Signed Up!", delegate: self, cancelButtonTitle: "OK")
                     alert.show()
+                    self.performSegueWithIdentifier("signupComplete", sender: self)
                 }
             })
         }
-        self.performSegueWithIdentifier("signupComplete", sender: self)
+        
     }
 
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        self.view.endEditing(true)
+    }
+    
 }
