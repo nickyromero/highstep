@@ -42,7 +42,7 @@ class UsersTableViewCell: UITableViewCell {
             
             var challenge = PFObject(className:"Challenge")
             challenge["fromUser"] = PFUser.currentUser()
-            challenge["stepCountFromUser"] = steps
+//            challenge["stepCountFromUser"] = nil
             challenge["toUser"] = self.userBeingChallenged
 //            challenge["stepCountToUser"] = nil
             challenge["startDate"] = startDate
