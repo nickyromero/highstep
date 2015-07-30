@@ -91,7 +91,7 @@ struct HealthKitManager {
             }
             
             challenge.saveInBackgroundWithBlock({ (success:Bool, error: NSError?) -> Void in
-                println("updated! steps")
+                println("\(PFUser.currentUser()!.username!) updated steps!")
                 
             })
         })

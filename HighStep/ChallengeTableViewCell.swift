@@ -13,17 +13,13 @@ import Parse
 class ChallengeTableViewCell: UITableViewCell {
  
    
-    @IBOutlet weak var fromUser: UILabel!
-    @IBOutlet weak var stepCountFromUser: UILabel!
+    @IBOutlet weak var currentUser: UILabel!
+    @IBOutlet weak var stepCountCurrentUser: UILabel!
     
-    @IBOutlet weak var toUser: UILabel!
-    @IBOutlet weak var stepCountToUser: UILabel!
+    @IBOutlet weak var challengeUser: UILabel!
+    @IBOutlet weak var stepCountChallengeUser: UILabel!
     
-    @IBOutlet weak var startDate: UILabel!
     @IBOutlet weak var endDate: UILabel!
-    
-    
-    
     
     
     

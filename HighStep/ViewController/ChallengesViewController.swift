@@ -12,27 +12,34 @@ import HealthKit
 
 class ChallengesViewController: UITableViewController {
     
-    var challenges: [PFObject] = []
-    
-    var completedChallenges: [PFObject] = []
-    var uncompletedChallenges: [PFObject] = []
-    
-    
-    
+    var arrayOfChallenges: [PFObject] = []
+    var completedFinalChallenges: [PFObject] = []
+    var expiredChallenges: [PFObject] = []
+    var timeLeftChallenges: [PFObject] = []
     var inProgressChallenges = 0
     
+    func refresh(sender: UIRefreshControl){
+        // Updating your data here...
+        self.updateCurrentUserStepCount()
+        self.queryChallenges()
+        
+        self.tableView.reloadData()
+        self.refreshControl?.endRefreshing()
+   
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        queryChallenges()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
+
         queryChallenges()
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl!)
+        self.tableView.reloadData()
     }
-    
-    
-    
+
+ 
     func queryChallenges() {
         
         var fromQuery = PFQuery(className: "Challenge")
@@ -45,54 +52,76 @@ class ChallengesViewController: UITableViewController {
         query.orderByDescending("endDate")
         query.findObjectsInBackgroundWithBlock { (objects:[AnyObject]?, error: NSError?) -> Void in
             if let challenges = objects as? [PFObject] {
-                self.challenges = challenges
-                self.tableView.reloadData()
-                println("total challenges for currentUser: \(self.challenges.count)")
-                self.checkForIncompleteChallenges()
-                self.updateFromUserStepCount()
+                
+                self.checkForIncompleteChallenges(challenges)
+                
+//                self.challenges = challenges
+//                self.tableView.reloadData()
+//                println("total challenges for currentUser: \(self.challenges.count)")
+//                self.checkForIncompleteChallenges()
+//                self.updateCurrentUserStepCount()
+                
             }
         }
         
     }
     
-    
-    func checkForIncompleteChallenges() {
+    func checkForIncompleteChallenges(someChallenges: Array<PFObject>) {
+      
+        var challenges = someChallenges
+        expiredChallenges.removeAll(keepCapacity: false)
+        completedFinalChallenges.removeAll(keepCapacity: false)
+        timeLeftChallenges.removeAll(keepCapacity: false)
         
-        
-        
-        for challenge in self.challenges {
+        for challenge in challenges {
            
             // create a method to pass the single challenge into a check for completion
-            
             var endDate = challenge["endDate"] as! NSDate
-            
+            var updatedAt = challenge.updatedAt!
+            var fromUserStepCount = challenge["stepCountFromUser"] as? Int
+            var toUserStepCount = challenge["stepCountToUser"] as? Int
            
-            if (endDate < NSDate()) {
-                println(challenge)
-                completedChallenges.append(challenge)
-            } else{
-                uncompletedChallenges.append(challenge)
+            let endDateIsGreater: Bool = endDate > NSDate()
+            let challengeIsFinal: Bool = (endDate < NSDate()) && (updatedAt > endDate) && (toUserStepCount != nil)  && (fromUserStepCount != nil)
+            
+            if (endDateIsGreater) {
+                
+                // this challenge is in progress, and needs to update the current users current step count
+                timeLeftChallenges.append(challenge)
+                
+            }  else if (challengeIsFinal) {
+                
+                // final - no more updating for these challenges
+                //completedFinalChallenges.append(challenge)
+                arrayOfChallenges.append(challenge)
+            
+            } else {
+                
+                // challenge expired, now just needs to update final step count for current user
+                expiredChallenges.append(challenge)
+                
             }
         }
+        
+        
+        println("time left challenges: \(timeLeftChallenges.count)")
+        println("completed: \(expiredChallenges.count)")
+        println("completed FINAL: \(arrayOfChallenges.count)")
         
     }
     
 
     
     
-    func updateFromUserStepCount() {
-       
+    func updateCurrentUserStepCount() {
         
-        
-        for challenge in uncompletedChallenges{
+        for challenge in timeLeftChallenges {
             HealthKitManager.updateChallenge(challenge)
         }
         
-        
-//        for challenge in challenges{
-//            HealthKitManager.updateChallenge(challenge)
-//        }
-        
+        for challenge in expiredChallenges {
+            HealthKitManager.updateChallenge(challenge)
+        }
         
     }
     
@@ -117,9 +146,13 @@ class ChallengesViewController: UITableViewController {
     
     //    MARK: ACTIONS
     
+    @IBAction func settingsButtonTapped(sender: UIBarButtonItem) {
+        performSegueWithIdentifier("toSettings", sender: sender)
+        
+        
+    }
     @IBAction func addButtonTapped(sender: UIBarButtonItem) {
-        
-        
+        performSegueWithIdentifier("challengeAUser", sender: sender)
         
     }
 }
@@ -137,28 +170,39 @@ extension ChallengesViewController: UITableViewDataSource {
         }
         
         
-        let aChallenge = self.challenges[curRow] as PFObject
+        let aChallenge = self.arrayOfChallenges[curRow] as PFObject
         
         let fromUser = aChallenge["fromUser"] as? PFUser
         let toUser = aChallenge["toUser"] as? PFUser
-        
-        cell.fromUser.text = fromUser?.username
-        cell.toUser.text = toUser?.username
-        
+  
         let stepCountFromUser = aChallenge["stepCountFromUser"] as? Int
         let stepCountToUser = aChallenge["stepCountToUser"] as? Int
         
-        cell.stepCountFromUser.text = stepCountFromUser?.description
-        cell.stepCountToUser.text = stepCountToUser?.description
         
-        let startDate = aChallenge["startDate"] as? NSDate
+    
+        if  (PFUser.currentUser()?.username == fromUser?.username) {
+        
+            cell.currentUser.text = fromUser?.username
+            cell.challengeUser.text = toUser?.username
+            cell.stepCountCurrentUser.text = stepCountFromUser?.description
+            cell.stepCountChallengeUser.text = stepCountToUser?.description
+            
+        } else  {
+            
+            cell.currentUser.text = toUser?.username
+            cell.challengeUser.text = fromUser?.username
+            cell.stepCountCurrentUser.text = stepCountToUser?.description
+            cell.stepCountChallengeUser.text = stepCountFromUser?.description
+    
+        }
+        
+        
         let endDate = aChallenge["endDate"] as? NSDate
         
         let formatter = NSDateFormatter()
         formatter.dateStyle = NSDateFormatterStyle.ShortStyle
         formatter.timeStyle = NSDateFormatterStyle.ShortStyle
         
-        cell.startDate.text =  formatter.stringFromDate(startDate!)
         cell.endDate.text =  formatter.stringFromDate(endDate!)
         
         return cell
@@ -166,92 +210,32 @@ extension ChallengesViewController: UITableViewDataSource {
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "In Progress"
-        } else {
-            return "Past"
+            return "In Progress" // timeleft
+        } else if section == 1{
+                return  "Waiting on Opponent!" //completed challenges
+        }
+            else {
+            return "History" //completed final challenges
         }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if challenges.count > 0 {
-            
-            let curDate = NSDate()
-            var index = 0
-            
-            if var curEndDate: NSDate = challenges[index]["endDate"] as? NSDate {
-                while index < challenges.count - 1 && curEndDate > curDate {
-                    index++
-                    curEndDate = challenges[index]["endDate"] as! NSDate
-                }
-            }
-            
-            inProgressChallenges = index
-            
-            if section == 0 {
-                return index
-            } else {
-                
-                return challenges.count - index
-            }
+        if section == 0{
+            return timeLeftChallenges.count
+        } else if section == 1{
+            return expiredChallenges.count
+        } else{
+            return completedFinalChallenges.count
         }
-        return 0
+        
+        
+        
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 }
-
-
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        tableView.dataSource = self
-//
-//        let endDate = NSDate()
-//        let startDate = NSCalendar.currentCalendar().dateByAddingUnit(.CalendarUnitHour, value: -2, toDate: endDate, options: nil)
-//
-//        HealthKitManager.queryStepsFromDate(startDate!, toDate: endDate) {
-//            (steps: Double) in
-//
-//            println("past 2 hours day steps:")
-//
-//            println(steps)
-//        }
-//
-//        HealthKitManager.queryStepsFromPastDay {
-//            (steps: Double) in
-//
-//            println("past day steps:")
-//            println(steps)
-//
-//        }
-
-//
-//  FUNC ADD BUTTON PRESSED>>> save to POST to stepRecord
-//        let endDate = NSDate()
-//        let startDate = NSCalendar.currentCalendar().dateByAddingUnit(.CalendarUnitDay, value: -1, toDate: endDate, options: nil)
-//
-//        HealthKitManager.queryStepsFromDate(startDate!, toDate: endDate) {
-//            (steps: Double) in
-//
-//            println("past 2 hours day steps for:")
-//            println(steps)
-//
-//        var stepRecord = PFObject(className:"StepRecord")
-//        stepRecord["stepCount"] = steps
-//        stepRecord["userName"] = PFUser.currentUser()
-//        stepRecord["startDate"] = startDate!
-//        stepRecord["endDate"] = endDate
-//        stepRecord.saveInBackgroundWithBlock { (success, error) -> Void in
-//            if success {
-//                println("saved")
-//            }
-//            else{
-//                println("\(error)")
-//                }
-//            }
-//        }
-
 
 
 public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
