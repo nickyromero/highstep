@@ -13,17 +13,26 @@ import HealthKit
 class ChallengesViewController: UITableViewController {
     
     var challenges: [PFObject] = []
+    
+    var completedChallenges: [PFObject] = []
     var uncompletedChallenges: [PFObject] = []
-
+    
+    
+    
     var inProgressChallenges = 0
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //        queryChallenges()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         queryChallenges()
     }
     
-
+    
+    
     func queryChallenges() {
         
         var fromQuery = PFQuery(className: "Challenge")
@@ -39,47 +48,59 @@ class ChallengesViewController: UITableViewController {
                 self.challenges = challenges
                 self.tableView.reloadData()
                 println("total challenges for currentUser: \(self.challenges.count)")
-                //self.checkForIncompleteChallenges()
-                self.queryForIncompleteChallenges()
+                self.checkForIncompleteChallenges()
+                self.updateFromUserStepCount()
             }
         }
-
+        
     }
     
     
     func checkForIncompleteChallenges() {
+        
+        
+        
         for challenge in self.challenges {
-            var fromUserCount = challenge["stepCountFromUser"] as! NSNumber?
-            var toUserCount = challenge["stepCountToUser"] as! NSNumber?
-            var isIncomplete: Bool = (fromUserCount == nil) && (toUserCount == nil)
-            if (isIncomplete) {
-                println(challenge)
-            }
-        }
-    }
-    
-    func queryForIncompleteChallenges() {
-        let aQuery = PFQuery(className: "Challenge")
-        aQuery.whereKey("stepCountFromUser", equalTo: NSNull())
-        
-        let bQuery = PFQuery(className: "Challenge")
-        bQuery.whereKey("stepCountToUser", equalTo: NSNull())
-        
-        let cQuery = PFQuery.orQueryWithSubqueries([aQuery, bQuery])
-        cQuery.includeKey("fromUser")
-        cQuery.includeKey("toUser")
-
-//        cQuery.whereKey("endDate", greaterThan: NSDate())
-        cQuery.findObjectsInBackgroundWithBlock { (challenges, anError) -> Void in
-            if (anError != nil) {
-                return
-            }
+           
+            // create a method to pass the single challenge into a check for completion
             
-            println("Incomplete challenges: \(challenges!.count)")
+            var endDate = challenge["endDate"] as! NSDate
+            
+           
+            if (endDate < NSDate()) {
+                println(challenge)
+                completedChallenges.append(challenge)
+            } else{
+                uncompletedChallenges.append(challenge)
+            }
         }
+        
     }
     
-// MARK: ********************************************************************
+
+    
+    
+    func updateFromUserStepCount() {
+       
+        
+        
+        for challenge in uncompletedChallenges{
+            HealthKitManager.updateChallenge(challenge)
+        }
+        
+        
+//        for challenge in challenges{
+//            HealthKitManager.updateChallenge(challenge)
+//        }
+        
+        
+    }
+    
+    
+    
+    
+    
+    // MARK: ********************************************************************
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
         if (segue.identifier == "ChallengeCell"){

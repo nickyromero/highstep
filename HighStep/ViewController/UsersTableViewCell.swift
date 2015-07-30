@@ -30,7 +30,7 @@ class UsersTableViewCell: UITableViewCell {
 
     
     //    MARK: ACTION
-    @IBAction func Challenge(sender: UIButton) {
+    @IBAction func challenge(sender: UIButton) {
         
         let startDate = NSDate()
         let endDate = NSCalendar.currentCalendar().dateByAddingUnit(.CalendarUnitMinute, value: 5, toDate: startDate, options: nil)
@@ -39,20 +39,21 @@ class UsersTableViewCell: UITableViewCell {
             
             println("next 5 minutes  steps for: \(PFUser.currentUser())")
             println(steps)
-            
-            var challenge = PFObject(className:"Challenge")
-            challenge["fromUser"] = PFUser.currentUser()
-//            challenge["stepCountFromUser"] = nil
-            challenge["toUser"] = self.userBeingChallenged
-//            challenge["stepCountToUser"] = nil
-            challenge["startDate"] = startDate
-            challenge["endDate"] = endDate!
-            
-            challenge.saveInBackgroundWithBlock { (success, error) -> Void in
-                if success {
-                    println("saved")
-                } else {
-                    println("\(error)")
+            if let curUser = PFUser.currentUser(), userBeingChallenged = self.userBeingChallenged {
+                var challenge = PFObject(className:"Challenge")
+                challenge["fromUser"] = curUser
+                //            challenge["stepCountFromUser"] = nil
+                challenge["toUser"] = userBeingChallenged
+                //            challenge["stepCountToUser"] = nil
+                challenge["startDate"] = startDate
+                challenge["endDate"] = endDate!
+                
+                challenge.saveInBackgroundWithBlock { (success, error) -> Void in
+                    if success {
+                        println("saved")
+                    } else {
+                        println("\(error)")
+                    }
                 }
             }
         }

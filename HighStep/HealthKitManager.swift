@@ -8,6 +8,7 @@
 
 import Foundation
 import HealthKit
+import Parse
 
 typealias StepsQueryCallBack = (Double) -> ()
 
@@ -69,6 +70,31 @@ struct HealthKitManager {
         let startDate = NSCalendar.currentCalendar().dateByAddingUnit(.CalendarUnitDay, value: -1, toDate: endDate, options: nil)
         
         HealthKitManager.queryStepsFromDate(startDate!, toDate: endDate, callback: callback)
+    }
+    
+    
+    static func updateChallenge(challenge: PFObject) {
+        
+        let startDate = challenge["startDate"] as! NSDate
+        let endDate = challenge["endDate"] as! NSDate
+        
+        HealthKitManager.queryStepsFromDate(startDate, toDate: endDate, callback: { (steps: Double) -> () in
+            
+            println(steps)
+            
+            if let fromUser = challenge["fromUser"] as? PFUser {
+                if fromUser.objectId == PFUser.currentUser()?.objectId {
+                    challenge["stepCountFromUser"] = Int(steps)
+                } else{
+                    challenge["stepCountToUser"] = Int(steps)
+                }
+            }
+            
+            challenge.saveInBackgroundWithBlock({ (success:Bool, error: NSError?) -> Void in
+                println("updated! steps")
+                
+            })
+        })
     }
     
 }

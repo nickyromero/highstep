@@ -410,49 +410,50 @@
         <scene sceneID="A6d-Dt-gkW">
             <objects>
                 <tableViewController id="ST9-FU-RnA" userLabel="UsersTableViewController" customClass="UsersTableViewController" customModule="HighStep" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="118" sectionHeaderHeight="22" sectionFooterHeight="22" id="8Te-JS-2do">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="64" sectionHeaderHeight="22" sectionFooterHeight="22" id="8Te-JS-2do">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="ei8-73-ccz">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier" rowHeight="118" id="I6S-m1-JLI" customClass="UsersTableViewCell" customModule="HighStep" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier" rowHeight="64" id="I6S-m1-JLI" customClass="UsersTableViewCell" customModule="HighStep" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I6S-m1-JLI" id="UdV-0l-VIP">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Usernames" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eia-ou-mek">
-                                            <rect key="frame" x="1" y="35" width="210" height="47.5"/>
+                                            <rect key="frame" x="0.0" y="25" width="210" height="21"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="210" id="Z6B-L8-cCh"/>
+                                                <constraint firstAttribute="width" constant="210" id="zMu-IF-qen"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o11-9e-QHg">
-                                            <rect key="frame" x="409" y="44" width="190" height="30"/>
+                                            <rect key="frame" x="358" y="8" width="190" height="45"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="190" id="89l-JR-nR5"/>
+                                                <constraint firstAttribute="width" constant="190" id="JET-EN-zbT"/>
                                             </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                             <state key="normal" title="Challenge!">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="Challenge:" destination="I6S-m1-JLI" eventType="touchUpInside" id="QwZ-1K-KN2"/>
+                                                <action selector="challenge:" destination="I6S-m1-JLI" eventType="touchUpInside" id="Xtu-QN-wha"/>
                                             </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="eia-ou-mek" firstAttribute="centerY" secondItem="UdV-0l-VIP" secondAttribute="centerY" id="5AY-FA-PvK"/>
-                                        <constraint firstItem="eia-ou-mek" firstAttribute="top" secondItem="UdV-0l-VIP" secondAttribute="topMargin" constant="27" id="Vvu-jf-MYl"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="o11-9e-QHg" secondAttribute="trailing" constant="-7" id="btK-sd-ajb"/>
-                                        <constraint firstItem="o11-9e-QHg" firstAttribute="top" secondItem="UdV-0l-VIP" secondAttribute="topMargin" constant="36" id="hHH-9M-0Mp"/>
-                                        <constraint firstItem="eia-ou-mek" firstAttribute="leading" secondItem="UdV-0l-VIP" secondAttribute="leadingMargin" constant="-7" id="zpB-xw-9Kp"/>
+                                        <constraint firstItem="o11-9e-QHg" firstAttribute="top" secondItem="UdV-0l-VIP" secondAttribute="topMargin" id="RiT-uF-JTT"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="o11-9e-QHg" secondAttribute="trailing" constant="44" id="SZu-Uk-ueY"/>
+                                        <constraint firstItem="eia-ou-mek" firstAttribute="leading" secondItem="UdV-0l-VIP" secondAttribute="leading" id="Tgs-3F-QHL"/>
+                                        <constraint firstItem="eia-ou-mek" firstAttribute="top" secondItem="UdV-0l-VIP" secondAttribute="topMargin" constant="17" id="kJy-Wm-zaU"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="eia-ou-mek" secondAttribute="bottom" constant="9.5" id="tbt-yz-OnA"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
