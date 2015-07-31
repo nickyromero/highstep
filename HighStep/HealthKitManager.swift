@@ -75,6 +75,8 @@ struct HealthKitManager {
     
     static func updateChallenge(updateChallenges: Array<PFObject>, withClosure: (isDone: Bool, updatedChalls: Array<PFObject>) -> (Void)) {
         
+        var index = 0
+        
         for challenge in updateChallenges {
             let startDate = challenge["startDate"] as! NSDate
             let endDate = challenge["endDate"] as! NSDate
@@ -89,11 +91,15 @@ struct HealthKitManager {
                         challenge["stepCountToUser"] = Int(steps)
                     }
                 }
+                
+                index++
+                
+                if index == updateChallenges.count {
+                    // call closure
+                    withClosure(isDone: true, updatedChalls: updateChallenges)
+                }
             })
         }
-        
-        // call closure
-        withClosure(isDone: true, updatedChalls: updateChallenges)
 
     }
     
