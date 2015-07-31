@@ -73,28 +73,28 @@ struct HealthKitManager {
     }
     
     
-    static func updateChallenge(challenge: PFObject) {
+    static func updateChallenge(updateChallenges: Array<PFObject>, withClosure: (isDone: Bool, updatedChalls: Array<PFObject>) -> (Void)) {
         
-        let startDate = challenge["startDate"] as! NSDate
-        let endDate = challenge["endDate"] as! NSDate
-        
-        HealthKitManager.queryStepsFromDate(startDate, toDate: endDate, callback: { (steps: Double) -> () in
-            
-            println(steps)
-            
-            if let fromUser = challenge["fromUser"] as? PFUser {
-                if fromUser.objectId == PFUser.currentUser()?.objectId {
-                    challenge["stepCountFromUser"] = Int(steps)
-                } else{
-                    challenge["stepCountToUser"] = Int(steps)
+        for challenge in updateChallenges {
+            let startDate = challenge["startDate"] as! NSDate
+            let endDate = challenge["endDate"] as! NSDate
+            HealthKitManager.queryStepsFromDate(startDate, toDate: endDate, callback: { (steps: Double) -> () in
+                println(steps)
+                if let fromUser = challenge["fromUser"] as? PFUser {
+                    if fromUser.objectId == PFUser.currentUser()?.objectId {
+                        
+                        challenge["stepCountFromUser"] = Int(steps)
+                    } else {
+                        
+                        challenge["stepCountToUser"] = Int(steps)
+                    }
                 }
-            }
-            
-            challenge.saveInBackgroundWithBlock({ (success:Bool, error: NSError?) -> Void in
-                println("\(PFUser.currentUser()!.username!) updated steps!")
-                
             })
-        })
+        }
+        
+        // call closure
+        withClosure(isDone: true, updatedChalls: updateChallenges)
+
     }
     
 }

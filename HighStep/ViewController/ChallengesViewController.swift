@@ -13,33 +13,23 @@ import HealthKit
 class ChallengesViewController: UITableViewController {
     
     var arrayOfChallenges: [PFObject] = []
-    var completedFinalChallenges: [PFObject] = []
-    var expiredChallenges: [PFObject] = []
-    var timeLeftChallenges: [PFObject] = []
+    var toUpdateChallenges: [PFObject] = []
     var inProgressChallenges = 0
     
     func refresh(sender: UIRefreshControl){
-        // Updating your data here...
-        self.updateCurrentUserStepCount()
         self.queryChallenges()
-        
         self.tableView.reloadData()
         self.refreshControl?.endRefreshing()
-   
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         queryChallenges()
-        
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl!)
-        self.tableView.reloadData()
     }
-
- 
+    
     func queryChallenges() {
         
         var fromQuery = PFQuery(className: "Challenge")
@@ -49,94 +39,68 @@ class ChallengesViewController: UITableViewController {
         let query = PFQuery.orQueryWithSubqueries([fromQuery, toQuery])
         query.includeKey("fromUser")
         query.includeKey("toUser")
+        
         query.orderByDescending("endDate")
         query.findObjectsInBackgroundWithBlock { (objects:[AnyObject]?, error: NSError?) -> Void in
             if let challenges = objects as? [PFObject] {
-                
                 self.checkForIncompleteChallenges(challenges)
-                
-//                self.challenges = challenges
-//                self.tableView.reloadData()
-//                println("total challenges for currentUser: \(self.challenges.count)")
-//                self.checkForIncompleteChallenges()
-//                self.updateCurrentUserStepCount()
-                
             }
         }
         
     }
     
     func checkForIncompleteChallenges(someChallenges: Array<PFObject>) {
-      
-        var challenges = someChallenges
-        expiredChallenges.removeAll(keepCapacity: false)
-        completedFinalChallenges.removeAll(keepCapacity: false)
-        timeLeftChallenges.removeAll(keepCapacity: false)
         
+        var challenges = someChallenges
+        toUpdateChallenges.removeAll(keepCapacity: true)
+        //        if arrayOfChallenges.count > 0 {
+        arrayOfChallenges.removeAll(keepCapacity: true)
+        //        }
+        
+        // could put on diff thread
         for challenge in challenges {
-           
+            
             // create a method to pass the single challenge into a check for completion
             var endDate = challenge["endDate"] as! NSDate
             var updatedAt = challenge.updatedAt!
             var fromUserStepCount = challenge["stepCountFromUser"] as? Int
             var toUserStepCount = challenge["stepCountToUser"] as? Int
-           
-            let endDateIsGreater: Bool = endDate > NSDate()
             let challengeIsFinal: Bool = (endDate < NSDate()) && (updatedAt > endDate) && (toUserStepCount != nil)  && (fromUserStepCount != nil)
             
-            if (endDateIsGreater) {
-                
-                // this challenge is in progress, and needs to update the current users current step count
-                timeLeftChallenges.append(challenge)
-                
-            }  else if (challengeIsFinal) {
-                
+            if (challengeIsFinal) {
                 // final - no more updating for these challenges
-                //completedFinalChallenges.append(challenge)
                 arrayOfChallenges.append(challenge)
-            
             } else {
-                
                 // challenge expired, now just needs to update final step count for current user
-                expiredChallenges.append(challenge)
-                
+                toUpdateChallenges.append(challenge)
             }
         }
-        
-        
-        println("time left challenges: \(timeLeftChallenges.count)")
-        println("completed: \(expiredChallenges.count)")
+        updateCurrentUserStepCount()
+        println("time left challenges: \(toUpdateChallenges.count)")
         println("completed FINAL: \(arrayOfChallenges.count)")
         
     }
     
-
-    
-    
     func updateCurrentUserStepCount() {
-        
-        for challenge in timeLeftChallenges {
-            HealthKitManager.updateChallenge(challenge)
-        }
-        
-        for challenge in expiredChallenges {
-            HealthKitManager.updateChallenge(challenge)
-        }
-        
+        HealthKitManager.updateChallenge(toUpdateChallenges, withClosure: { (isDone, challenges) -> Void in
+            if isDone {
+                println("fdsfdsgfdgfdgfdgfd")
+                println(challenges[0]["stepCountFromUser"])
+                self.toUpdateChallenges.removeAll(keepCapacity: true)
+                self.toUpdateChallenges = challenges
+                self.updateChallenges(self.toUpdateChallenges)
+            }
+        })
     }
     
-    
-    
-    
-    
-    // MARK: ********************************************************************
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
-        if (segue.identifier == "ChallengeCell"){
+    func updateChallenges(withChallenges: Array<PFObject>) {
+        PFObject.saveAllInBackground(withChallenges, block: { (didUpdate, error) -> Void in
+            if error != nil {
+                return
+            }
+            self.tableView.reloadData()
             
-            var challengeDetail = segue.destinationViewController as? ChallengeDetailViewController
-            
-        }
+        })
     }
     
     override func didReceiveMemoryWarning() {
@@ -145,43 +109,46 @@ class ChallengesViewController: UITableViewController {
     
     
     //    MARK: ACTIONS
-    
     @IBAction func settingsButtonTapped(sender: UIBarButtonItem) {
         performSegueWithIdentifier("toSettings", sender: sender)
-        
-        
     }
+    
     @IBAction func addButtonTapped(sender: UIBarButtonItem) {
         performSegueWithIdentifier("challengeAUser", sender: sender)
-        
     }
+    
 }
+
 extension ChallengesViewController: UITableViewDataSource {
     
-    
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("ChallengeCell", forIndexPath: indexPath) as! ChallengeTableViewCell
+//        
+//        if indexPath.section == 0 {
+//            print(toUpdateChallenges[indexPath.row])
+//        } else {
+//            print(arrayOfChallenges[indexPath.row])
+//        }
         
-        var curRow = indexPath.row
+        var aChallenge : PFObject!
         
-        if indexPath.section == 1 {
-            curRow += inProgressChallenges
+        if indexPath.section == 0 {
+            aChallenge = self.toUpdateChallenges[indexPath.row]
+        } else {
+            aChallenge = self.arrayOfChallenges[indexPath.row]
         }
-        
-        
-        let aChallenge = self.arrayOfChallenges[curRow] as PFObject
         
         let fromUser = aChallenge["fromUser"] as? PFUser
         let toUser = aChallenge["toUser"] as? PFUser
-  
+        
         let stepCountFromUser = aChallenge["stepCountFromUser"] as? Int
         let stepCountToUser = aChallenge["stepCountToUser"] as? Int
         
         
-    
-        if  (PFUser.currentUser()?.username == fromUser?.username) {
         
+        if  (PFUser.currentUser()?.username == fromUser?.username) {
+            
             cell.currentUser.text = fromUser?.username
             cell.challengeUser.text = toUser?.username
             cell.stepCountCurrentUser.text = stepCountFromUser?.description
@@ -193,7 +160,7 @@ extension ChallengesViewController: UITableViewDataSource {
             cell.challengeUser.text = fromUser?.username
             cell.stepCountCurrentUser.text = stepCountToUser?.description
             cell.stepCountChallengeUser.text = stepCountFromUser?.description
-    
+            
         }
         
         
@@ -204,36 +171,31 @@ extension ChallengesViewController: UITableViewDataSource {
         formatter.timeStyle = NSDateFormatterStyle.ShortStyle
         
         cell.endDate.text =  formatter.stringFromDate(endDate!)
-        
+        //
         return cell
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "In Progress" // timeleft
-        } else if section == 1{
-                return  "Waiting on Opponent!" //completed challenges
+            return "In Progress" // in progress
         }
-            else {
-            return "History" //completed final challenges
+        else {
+            return "History" // final challenges
         }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{
-            return timeLeftChallenges.count
-        } else if section == 1{
-            return expiredChallenges.count
-        } else{
-            return completedFinalChallenges.count
+        
+        if section == 0 {
+            return toUpdateChallenges.count
+        } else {
+            return arrayOfChallenges.count
         }
-        
-        
-        
     }
     
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
 }
 
