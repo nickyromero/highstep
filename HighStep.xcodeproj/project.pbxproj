@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A4CC3F96D3F44AE8D19BC70B /* Pods_HighStep.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 639D9052BAB495ABB4EA48D1 /* Pods_HighStep.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		F35FFDC51B67845A00D4DAEF /* ChallengeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35FFDC41B67845A00D4DAEF /* ChallengeDetailViewController.swift */; };
 		F37055F31B5F050D00E285CF /* ChallengeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37055F21B5F050D00E285CF /* ChallengeTableViewCell.swift */; };
 		F37E56341B5D6A7200F52356 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37E56331B5D6A7200F52356 /* HealthKitManager.swift */; };
 		F37E56361B5D789200F52356 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37E56351B5D789200F52356 /* SignUpViewController.swift */; };
@@ -19,6 +18,7 @@
 		F38B210D1B59C0CA0038453C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F38B210B1B59C0CA0038453C /* LaunchScreen.xib */; };
 		F38B21191B59C0CA0038453C /* HighStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38B21181B59C0CA0038453C /* HighStepTests.swift */; };
 		F38B21241B59C0D30038453C /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F38B21231B59C0D30038453C /* HealthKit.framework */; };
+		F397B3D81B6C3BC9006D1523 /* PendingChallengeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F397B3D71B6C3BC9006D1523 /* PendingChallengeTableViewCell.swift */; };
 		F3B51C731B61858C00841FE2 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B51C721B61858C00841FE2 /* UsersTableViewController.swift */; };
 		F3B51C751B6189FE00841FE2 /* UsersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B51C741B6189FE00841FE2 /* UsersTableViewCell.swift */; };
 		F3BE77A61B59C56500EFFBA3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BE77A51B59C56500EFFBA3 /* SettingsViewController.swift */; };
@@ -40,7 +40,6 @@
 		32C6FD391C175215EF3C38FF /* Pods-HighStep.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HighStep.release.xcconfig"; path = "Pods/Target Support Files/Pods-HighStep/Pods-HighStep.release.xcconfig"; sourceTree = "<group>"; };
 		639D9052BAB495ABB4EA48D1 /* Pods_HighStep.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HighStep.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C35EB8731E563794F3C9D37C /* Pods-HighStep.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HighStep.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HighStep/Pods-HighStep.debug.xcconfig"; sourceTree = "<group>"; };
-		F35FFDC41B67845A00D4DAEF /* ChallengeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChallengeDetailViewController.swift; path = ../ChallengeDetailViewController.swift; sourceTree = "<group>"; };
 		F37055F21B5F050D00E285CF /* ChallengeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChallengeTableViewCell.swift; path = ../ChallengeTableViewCell.swift; sourceTree = "<group>"; };
 		F37E56331B5D6A7200F52356 /* HealthKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		F37E56351B5D789200F52356 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +55,7 @@
 		F38B21181B59C0CA0038453C /* HighStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighStepTests.swift; sourceTree = "<group>"; };
 		F38B21221B59C0D30038453C /* HighStep.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HighStep.entitlements; sourceTree = "<group>"; };
 		F38B21231B59C0D30038453C /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		F397B3D71B6C3BC9006D1523 /* PendingChallengeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingChallengeTableViewCell.swift; sourceTree = "<group>"; };
 		F3B51C721B61858C00841FE2 /* UsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		F3B51C741B6189FE00841FE2 /* UsersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersTableViewCell.swift; sourceTree = "<group>"; };
 		F3BE77A51B59C56500EFFBA3 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -131,7 +131,7 @@
 			children = (
 				F3BE77A71B59C57600EFFBA3 /* ChallengesViewController.swift */,
 				F37055F21B5F050D00E285CF /* ChallengeTableViewCell.swift */,
-				F35FFDC41B67845A00D4DAEF /* ChallengeDetailViewController.swift */,
+				F397B3D71B6C3BC9006D1523 /* PendingChallengeTableViewCell.swift */,
 				F35FFDC81B6784B800D4DAEF /* Users */,
 				F35FFDCA1B6784D800D4DAEF /* Settings */,
 			);
@@ -389,10 +389,10 @@
 				F37E56361B5D789200F52356 /* SignUpViewController.swift in Sources */,
 				F3B51C731B61858C00841FE2 /* UsersTableViewController.swift in Sources */,
 				F3BE77A61B59C56500EFFBA3 /* SettingsViewController.swift in Sources */,
-				F35FFDC51B67845A00D4DAEF /* ChallengeDetailViewController.swift in Sources */,
 				F3B51C751B6189FE00841FE2 /* UsersTableViewCell.swift in Sources */,
 				F37E56341B5D6A7200F52356 /* HealthKitManager.swift in Sources */,
 				F38B21001B59C0CA0038453C /* AppDelegate.swift in Sources */,
+				F397B3D81B6C3BC9006D1523 /* PendingChallengeTableViewCell.swift in Sources */,
 				F3BE77A81B59C57600EFFBA3 /* ChallengesViewController.swift in Sources */,
 				F38B21031B59C0CA0038453C /* HighStep.xcdatamodeld in Sources */,
 				F37055F31B5F050D00E285CF /* ChallengeTableViewCell.swift in Sources */,

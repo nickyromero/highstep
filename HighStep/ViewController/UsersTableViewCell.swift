@@ -33,20 +33,22 @@ class UsersTableViewCell: UITableViewCell {
     @IBAction func challenge(sender: UIButton) {
         
         let startDate = NSDate()
-        let endDate = NSCalendar.currentCalendar().dateByAddingUnit(.CalendarUnitMinute, value: 5, toDate: startDate, options: nil)
+        let endDate = NSCalendar.currentCalendar().dateByAddingUnit(.CalendarUnitHour, value: 5, toDate: startDate, options: nil)
         
-        HealthKitManager.queryStepsFromDate(startDate, toDate: endDate!) {(steps: Double) in
-            
-            println("next 5 minutes  steps for: \(PFUser.currentUser())")
-            println(steps)
+//        HealthKitManager.queryStepsFromDate(startDate, toDate: endDate!) {(steps: Double) in
+        
+//            println("next 5 minutes  steps for: \(PFUser.currentUser())")
+        
             if let curUser = PFUser.currentUser(), userBeingChallenged = self.userBeingChallenged {
                 var challenge = PFObject(className:"Challenge")
                 challenge["fromUser"] = curUser
-                //            challenge["stepCountFromUser"] = nil
+                challenge["stepCountFromUser"] = nil
                 challenge["toUser"] = userBeingChallenged
-                //            challenge["stepCountToUser"] = nil
+                challenge["stepCountToUser"] = Int.random(1...4000)
                 challenge["startDate"] = startDate
                 challenge["endDate"] = endDate!
+                challenge["toUserHasAccepted"] = false
+                
                 
                 challenge.saveInBackgroundWithBlock { (success, error) -> Void in
                     if success {
@@ -59,8 +61,23 @@ class UsersTableViewCell: UITableViewCell {
         }
         
     }
-    
 
+//}
 
-
+extension Int
+{
+    static func random(range: Range<Int> ) -> Int
+    {
+        var offset = 0
+        
+        if range.startIndex < 0   // allow negative ranges
+        {
+            offset = abs(range.startIndex)
+        }
+        
+        let mini = UInt32(range.startIndex + offset)
+        let maxi = UInt32(range.endIndex   + offset)
+        
+        return Int(mini + arc4random_uniform(maxi - mini)) - offset
+    }
 }

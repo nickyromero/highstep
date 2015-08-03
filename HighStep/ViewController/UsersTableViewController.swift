@@ -9,12 +9,26 @@
 import UIKit
 import Parse
 
-class UsersTableViewController: UITableViewController {
+class UsersTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     var users: [PFUser]?
+    var searchActive : Bool = false
+    @IBOutlet weak var userSearchBar: UISearchBar!
+    
+//    var filtered:[String] = []
+//
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+//        tableView.delegate = self
+//        tableView.dataSource = self
+////        searchBar.delegate = self
+        
+
+        
         var query = PFQuery(className: "_User")
         query.whereKey("objectId", notEqualTo: PFUser.currentUser()!.objectId!)
         query.findObjectsInBackgroundWithBlock {(objects: [AnyObject]?, error: NSError?) -> Void in
@@ -37,7 +51,18 @@ class UsersTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UsersTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("userCell", forIndexPath: indexPath) as! UsersTableViewCell
+        
+        
+        
+//        
+//        if(searchActive){
+//            cell.textLabel?.text = filtered[indexPath.row]
+//        } else {
+//            cell.textLabel?.text = data[indexPath.row];
+//        }
+        
+        
         let aUser = self.users![indexPath.row] as PFUser
         
         cell.userBeingChallenged = aUser
@@ -50,6 +75,45 @@ class UsersTableViewController: UITableViewController {
  
     
     
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchActive = true;
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchActive = false;
+    }
+
+   
+//
+//    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+//        
+//        filtered = data.filter({ (text) -> Bool in
+//            let tmp: NSString = text
+//            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+//            return range.location != NSNotFound
+//        })
+//        if(filtered.count == 0){
+//            searchActive = false;
+//        } else {
+//            searchActive = true;
+//        }
+//        self.tableView.reloadData()
+//    }
+
+
+
+
+}
+
+
 
     /*
     // Override to support conditional editing of the table view.
@@ -96,4 +160,3 @@ class UsersTableViewController: UITableViewController {
     }
     */
 
-}

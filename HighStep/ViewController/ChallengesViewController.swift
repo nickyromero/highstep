@@ -14,7 +14,9 @@ class ChallengesViewController: UITableViewController {
     
     var arrayOfChallenges: [PFObject] = []
     var toUpdateChallenges: [PFObject] = []
-    var inProgressChallenges = 0
+    var pendingChallenges: [PFObject] = []
+    
+//    var inProgressChallenges = 0
     
     func refresh(sender: UIRefreshControl){
         self.queryChallenges()
@@ -24,10 +26,26 @@ class ChallengesViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        queryChallenges()
+
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl!)
+        self.tableView.rowHeight = 140.0
+    
+
+
+    }
+    override func viewDidAppear(animated: Bool) {
+        
+        if PFUser.currentUser() == nil{
+            performSegueWithIdentifier("toSettings", sender: self)
+            return
+        }
+        
+        
+        queryChallenges()
+        self.tableView.reloadData()
+
     }
     
     func queryChallenges() {
@@ -39,7 +57,6 @@ class ChallengesViewController: UITableViewController {
         let query = PFQuery.orQueryWithSubqueries([fromQuery, toQuery])
         query.includeKey("fromUser")
         query.includeKey("toUser")
-        
         query.orderByDescending("endDate")
         query.findObjectsInBackgroundWithBlock { (objects:[AnyObject]?, error: NSError?) -> Void in
             if let challenges = objects as? [PFObject] {
@@ -52,13 +69,26 @@ class ChallengesViewController: UITableViewController {
     func checkForIncompleteChallenges(someChallenges: Array<PFObject>) {
         
         var challenges = someChallenges
+        
         toUpdateChallenges.removeAll(keepCapacity: true)
-        //        if arrayOfChallenges.count > 0 {
         arrayOfChallenges.removeAll(keepCapacity: true)
-        //        }
+        pendingChallenges.removeAll(keepCapacity: true)
+        
+        
+        
         
         // could put on diff thread
         for challenge in challenges {
+            
+            
+            var acceptedChallenge = challenge["toUserHasAccepted"] as? Bool
+            
+            if (acceptedChallenge == false){
+                pendingChallenges.append(challenge)
+                
+                
+            } else{
+            
             
             // create a method to pass the single challenge into a check for completion
             var endDate = challenge["endDate"] as! NSDate
@@ -78,14 +108,14 @@ class ChallengesViewController: UITableViewController {
         updateCurrentUserStepCount()
         println("time left challenges: \(toUpdateChallenges.count)")
         println("completed FINAL: \(arrayOfChallenges.count)")
+       
+        }
         
     }
     
     func updateCurrentUserStepCount() {
         HealthKitManager.updateChallenge(toUpdateChallenges, withClosure: { (isDone, challenges) -> Void in
             if isDone {
-                println("fdsfdsgfdgfdgfdgfd")
-                println(challenges[0]["stepCountFromUser"])
                 self.toUpdateChallenges.removeAll(keepCapacity: true)
                 self.toUpdateChallenges = challenges
                 self.updateChallenges(self.toUpdateChallenges)
@@ -121,23 +151,25 @@ class ChallengesViewController: UITableViewController {
 
 extension ChallengesViewController: UITableViewDataSource {
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func pendingChallengeCellForChallenge(aChallenge: PFObject, indexPath: NSIndexPath) -> UITableViewCell{
+        let cell = tableView.dequeueReusableCellWithIdentifier("PendingChallengeCell", forIndexPath: indexPath) as! PendingChallengeTableViewCell
         
+        
+        let fromUser = aChallenge["fromUser"] as? PFUser
+        cell.challengeUser.text = fromUser?.username
+        
+        
+        
+        
+        return cell
+        
+        
+        
+    }
+    
+    func challengeCellForChallenge(aChallenge: PFObject, indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ChallengeCell", forIndexPath: indexPath) as! ChallengeTableViewCell
-//        
-//        if indexPath.section == 0 {
-//            print(toUpdateChallenges[indexPath.row])
-//        } else {
-//            print(arrayOfChallenges[indexPath.row])
-//        }
-        
-        var aChallenge : PFObject!
-        
-        if indexPath.section == 0 {
-            aChallenge = self.toUpdateChallenges[indexPath.row]
-        } else {
-            aChallenge = self.arrayOfChallenges[indexPath.row]
-        }
+ 
         
         let fromUser = aChallenge["fromUser"] as? PFUser
         let toUser = aChallenge["toUser"] as? PFUser
@@ -145,57 +177,154 @@ extension ChallengesViewController: UITableViewDataSource {
         let stepCountFromUser = aChallenge["stepCountFromUser"] as? Int
         let stepCountToUser = aChallenge["stepCountToUser"] as? Int
         
-        
+        let endDate = aChallenge["endDate"] as? NSDate
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = NSDateFormatterStyle.ShortStyle
+        formatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        cell.endDate.text =  formatter.stringFromDate(endDate!)
         
         if  (PFUser.currentUser()?.username == fromUser?.username) {
             
             cell.currentUser.text = fromUser?.username
             cell.challengeUser.text = toUser?.username
-            cell.stepCountCurrentUser.text = stepCountFromUser?.description
-            cell.stepCountChallengeUser.text = stepCountToUser?.description
+            let stepFromString = stepCountFromUser!.description
+            let stepToString = stepCountToUser!.description
+            
+            cell.stepCountCurrentUser.text = "\(stepFromString) steps"
+            
+            cell.stepCountChallengeUser.text = "\(stepToString) steps"
+            
+            
+            if let stepCountFromUser = stepCountFromUser, let stepCountToUser = stepCountToUser {
+                let totalSteps = (stepCountFromUser + stepCountToUser)
+                
+                
+                var currentUserProgress = Float(stepCountFromUser) / Float(totalSteps)
+                println(currentUserProgress)
+                
+                cell.progressBar.setProgress(currentUserProgress, animated: true)
+                
+                
+                
+                
+                if endDate < NSDate() && stepCountFromUser > stepCountToUser{
+                    cell.currentUser.text = "\(fromUser!.username!) 🏆"
+                    
+                } else if (endDate < NSDate() && stepCountFromUser < stepCountToUser){
+                    cell.challengeUser.text = "🏆 \(toUser!.username!)"
+                    
+                }
+                
+                
+                
+            }
             
         } else  {
             
             cell.currentUser.text = toUser?.username
             cell.challengeUser.text = fromUser?.username
-            cell.stepCountCurrentUser.text = stepCountToUser?.description
-            cell.stepCountChallengeUser.text = stepCountFromUser?.description
+            
+            let stepFromString = stepCountFromUser!.description
+            let stepToString = stepCountToUser!.description
+            
+            
+            cell.stepCountCurrentUser.text = "\(stepToString) steps"
+            cell.stepCountChallengeUser.text = "\(stepFromString) steps"
+            
+            
+                        if endDate < NSDate() && stepCountFromUser > stepCountToUser{
+                            cell.challengeUser.text = "🏆 \(fromUser!.username!)"
+            
+            
+                        } else if (endDate < NSDate() && stepCountFromUser < stepCountToUser){
+                            cell.currentUser.text = "\(toUser!.username!) 🏆"
+            
+                        }
+            
+            
+            
+            if let stepCountFromUser = stepCountFromUser, let stepCountToUser = stepCountToUser {
+                let totalSteps = (stepCountFromUser + stepCountToUser)
+                
+                
+                var currentUserProgress = Float(stepCountToUser) / Float(totalSteps)
+                println(currentUserProgress)
+                
+                cell.progressBar.setProgress(currentUserProgress, animated: true)
+
+                
+            }
             
         }
         
         
-        let endDate = aChallenge["endDate"] as? NSDate
+        if endDate < NSDate(){
+            cell.endDate.text = "🏁"
+
+        }
         
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = NSDateFormatterStyle.ShortStyle
-        formatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        cell.progressBar.layer.cornerRadius = 22
+        cell.progressBar.layer.masksToBounds = true
+        cell.progressBar.clipsToBounds = true
         
-        cell.endDate.text =  formatter.stringFromDate(endDate!)
-        //
+        
+        
+        return cell
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        var aChallenge : PFObject!
+        
+        var cell: UITableViewCell!
+        
+        switch indexPath.section
+        {
+        case 0:
+            aChallenge = self.pendingChallenges[indexPath.row]
+            cell = pendingChallengeCellForChallenge(aChallenge, indexPath:indexPath)
+            
+        case 1:
+            aChallenge = self.toUpdateChallenges[indexPath.row]
+            cell = challengeCellForChallenge(aChallenge, indexPath:indexPath)
+        case 2:
+            aChallenge = self.arrayOfChallenges[indexPath.row]
+            cell = challengeCellForChallenge(aChallenge, indexPath:indexPath)
+        default:
+            println("Invalid section")
+        }
+        
         return cell
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "In Progress" // in progress
+            return "Pending Challenges... tap to begin!" // pending
+        } else if section == 1{
+            return "Current Challenges" //in progress
         }
         else {
-            return "History" // final challenges
+            return "Past Challenges" // final challenges
         }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0 {
+            return pendingChallenges.count
+        } else if section == 1{
             return toUpdateChallenges.count
-        } else {
+        }
+        else {
             return arrayOfChallenges.count
         }
+        
+        
     }
     
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 }
 

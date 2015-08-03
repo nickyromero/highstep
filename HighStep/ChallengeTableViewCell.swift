@@ -21,7 +21,7 @@ class ChallengeTableViewCell: UITableViewCell {
     
     @IBOutlet weak var endDate: UILabel!
     
-    
+    @IBOutlet weak var progressBar: UIProgressView!
     
     
 //    let formatter = NSDateFormatter()
