@@ -11,34 +11,62 @@ import Parse
 
 class UsersTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
-    var users: [PFUser]?
+    var users : [PFUser] = []
     var searchActive : Bool = false
     @IBOutlet weak var userSearchBar: UISearchBar!
     
-//    var filtered:[String] = []
-//
+    var filtered:[PFUser] = []
+
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-//        tableView.delegate = self
-//        tableView.dataSource = self
-////        searchBar.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
+        userSearchBar.delegate = self
+        reloadChallengedUsers()
         
-
-        
-        var query = PFQuery(className: "_User")
-        query.whereKey("objectId", notEqualTo: PFUser.currentUser()!.objectId!)
-        query.findObjectsInBackgroundWithBlock {(objects: [AnyObject]?, error: NSError?) -> Void in
-            if let users = objects as? [PFUser] {
-                self.users = users
+    }
+    func reloadChallengedUsers() {
+        users = [PFUser]()
+        var fromQuery = PFQuery(className: "Challenge")
+        fromQuery.whereKey("fromUser", equalTo: PFUser.currentUser()!)
+        let toQuery = PFQuery(className: "Challenge")
+        toQuery.whereKey("toUser", equalTo: PFUser.currentUser()!)
+        let query = PFQuery.orQueryWithSubqueries([fromQuery, toQuery])
+        query.includeKey("fromUser")
+        query.includeKey("toUser")
+        query.orderByDescending("endDate")
+        query.findObjectsInBackgroundWithBlock { (objects:[AnyObject]?, error: NSError?) -> Void in
+            if let challenges = objects as? [PFObject] {
+                for challenge in challenges {
+                    if let fromUser = challenge.objectForKey("fromUser") as? PFUser, let toUser = challenge.objectForKey("toUser") as? PFUser {
+                        //
+                        var user : PFUser;
+                        if(fromUser.username!==PFUser.currentUser()!.username!) {
+                            user = toUser
+                        } else {
+                            user = fromUser
+                        }
+                        var contains = false
+                        for existingUser in self.users {
+                            if(existingUser.username == user.username) {
+                                contains = true
+                                break
+                            }
+                        }
+                        if !contains {
+                            self.users.append(user)
+                        }
+                    }
+                }
                 self.tableView.reloadData()
             }
         }
-    }
 
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -46,7 +74,11 @@ class UsersTableViewController: UITableViewController, UITableViewDataSource, UI
 
     // MARK: - Table view data source
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users?.count ?? 0
+        if searchActive {
+            return filtered.count ?? 0
+        } else {
+            return users.count ?? 0
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -55,18 +87,20 @@ class UsersTableViewController: UITableViewController, UITableViewDataSource, UI
         
         
         
-//        
-//        if(searchActive){
-//            cell.textLabel?.text = filtered[indexPath.row]
-//        } else {
-//            cell.textLabel?.text = data[indexPath.row];
-//        }
+        var aUser : PFUser
+        if(searchActive){
+            aUser = filtered[indexPath.row]
+        } else {
+            aUser = self.users[indexPath.row]
+        }
         
         
-        let aUser = self.users![indexPath.row] as PFUser
-        
+
+//        cell.textLabel?.text = aUser.username
         cell.userBeingChallenged = aUser
         cell.userNames.text = aUser.username
+        
+ 
 
         return cell
     
@@ -92,21 +126,32 @@ class UsersTableViewController: UITableViewController, UITableViewDataSource, UI
     }
 
    
-//
-//    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-//        
-//        filtered = data.filter({ (text) -> Bool in
+
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+//        filtered = PFQUery.filter({ (text) -> Bool in
 //            let tmp: NSString = text
 //            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
 //            return range.location != NSNotFound
 //        })
-//        if(filtered.count == 0){
-//            searchActive = false;
-//        } else {
-//            searchActive = true;
-//        }
-//        self.tableView.reloadData()
-//    }
+
+        if(count(searchText) == 0){
+            searchActive = false;
+            reloadChallengedUsers()
+        } else {
+            searchActive = true;
+            let query = PFQuery(className: "_User")
+            query.whereKey("objectId", notEqualTo: PFUser.currentUser()!.objectId!)
+            query.whereKey("username", matchesRegex: searchText, modifiers: "i")
+            query.findObjectsInBackgroundWithBlock { (objects:[AnyObject]?, error: NSError?) -> Void in
+                if let users = objects as? [PFUser] {
+                    self.filtered = users
+                    self.tableView.reloadData()
+                }
+            }
+        }
+
+    }
 
 
 

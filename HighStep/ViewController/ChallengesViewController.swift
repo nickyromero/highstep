@@ -274,6 +274,12 @@ extension ChallengesViewController: UITableViewDataSource {
         cell.progressBar.layer.masksToBounds = true
         cell.progressBar.clipsToBounds = true
         
+        cell.challengeUser.textColor = UIColor(red:  192/255, green: 31/255, blue: 41/255, alpha: 1)
+        cell.currentUser.textColor = UIColor(red:  192/255, green: 31/255, blue: 41/255, alpha: 1)
+        cell.endDate.textColor = UIColor(red:  192/255, green: 31/255, blue: 41/255, alpha: 1)
+        cell.stepCountChallengeUser.textColor = UIColor(red:  192/255, green: 31/255, blue: 41/255, alpha: 1)
+        cell.stepCountCurrentUser.textColor = UIColor(red:  192/255, green: 31/255, blue: 41/255, alpha: 1)
+
         
         
         return cell
@@ -284,7 +290,10 @@ extension ChallengesViewController: UITableViewDataSource {
     let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         header.contentView.backgroundColor = UIColor.whiteColor()
         
-        header.textLabel.tintColor = UIColor.redColor()
+        header.textLabel.textColor = UIColor.whiteColor()
+        header.contentView.backgroundColor =  UIColor(red: 192/255, green: 31/255, blue: 41/255, alpha: 1)
+
+        
         
     }
     
