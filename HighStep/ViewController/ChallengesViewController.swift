@@ -15,8 +15,7 @@ class ChallengesViewController: UITableViewController {
     var arrayOfChallenges: [PFObject] = []
     var toUpdateChallenges: [PFObject] = []
     var pendingChallenges: [PFObject] = []
-    
-//    var inProgressChallenges = 0
+    var toAcceptChallenges: [PFObject] = []
     
     func refresh(sender: UIRefreshControl){
         self.queryChallenges()
@@ -26,26 +25,20 @@ class ChallengesViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl!)
-        self.tableView.rowHeight = 140.0
-    
-
 
     }
+    
     override func viewDidAppear(animated: Bool) {
         
         if PFUser.currentUser() == nil{
             performSegueWithIdentifier("toSettings", sender: self)
             return
         }
-        
-        
         queryChallenges()
         self.tableView.reloadData()
-
     }
     
     func queryChallenges() {
@@ -63,8 +56,8 @@ class ChallengesViewController: UITableViewController {
                 self.checkForIncompleteChallenges(challenges)
             }
         }
-        
     }
+    
     
     func checkForIncompleteChallenges(someChallenges: Array<PFObject>) {
         
@@ -73,23 +66,25 @@ class ChallengesViewController: UITableViewController {
         toUpdateChallenges.removeAll(keepCapacity: true)
         arrayOfChallenges.removeAll(keepCapacity: true)
         pendingChallenges.removeAll(keepCapacity: true)
-        
-        
-        
-        
+        toAcceptChallenges.removeAll(keepCapacity: true)
+
         // could put on diff thread
         for challenge in challenges {
             
+            var toUser = challenge["toUser"] as! PFUser
+            var fromUser = challenge["fromUser"] as! PFUser
             
-            var acceptedChallenge = challenge["toUserHasAccepted"] as? Bool
+            var isAPendingChallenge = challenge["toUserHasAccepted"] as? Bool
             
-            if (acceptedChallenge == false){
-                pendingChallenges.append(challenge)
+            if (isAPendingChallenge == false){
+                if PFUser.currentUser()?.username! == toUser.username! {
+                    toAcceptChallenges.append(challenge)
+                } else{
                 
+                pendingChallenges.append(challenge)
+                }
                 
             } else{
-            
-            
             // create a method to pass the single challenge into a check for completion
             var endDate = challenge["endDate"] as! NSDate
             var updatedAt = challenge.updatedAt!
@@ -105,13 +100,15 @@ class ChallengesViewController: UITableViewController {
                 toUpdateChallenges.append(challenge)
             }
         }
+    }
         updateCurrentUserStepCount()
         println("time left challenges: \(toUpdateChallenges.count)")
         println("completed FINAL: \(arrayOfChallenges.count)")
-       
-        }
-        
+        println("pending: \(pendingChallenges.count)")
+        println("to be Accepted: \(toAcceptChallenges.count)")
     }
+    
+    
     
     func updateCurrentUserStepCount() {
         HealthKitManager.updateChallenge(toUpdateChallenges, withClosure: { (isDone, challenges) -> Void in
@@ -154,13 +151,23 @@ extension ChallengesViewController: UITableViewDataSource {
     func pendingChallengeCellForChallenge(aChallenge: PFObject, indexPath: NSIndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCellWithIdentifier("PendingChallengeCell", forIndexPath: indexPath) as! PendingChallengeTableViewCell
         
+       
+        
+        let startDate = NSDate()
+        let endDate = NSCalendar.currentCalendar().dateByAddingUnit(.CalendarUnitHour, value: 5, toDate: startDate, options: nil)
+
+        
         
         let fromUser = aChallenge["fromUser"] as? PFUser
-        cell.challengeUser.text = fromUser?.username
+        let toUser = aChallenge["toUser"] as? PFUser
         
+        if  (PFUser.currentUser()?.username == fromUser?.username) {
+        cell.challengeUser.text = "Waiting for \(toUser!.username!) to accpet!"
         
-        
-        
+        } else{
+            cell.challengeUser.text = "Accept challenge from \(fromUser!.username!)"
+        }
+ 
         return cell
         
         
@@ -200,7 +207,6 @@ extension ChallengesViewController: UITableViewDataSource {
                 
                 
                 var currentUserProgress = Float(stepCountFromUser) / Float(totalSteps)
-                println(currentUserProgress)
                 
                 cell.progressBar.setProgress(currentUserProgress, animated: true)
                 
@@ -248,7 +254,7 @@ extension ChallengesViewController: UITableViewDataSource {
                 
                 
                 var currentUserProgress = Float(stepCountToUser) / Float(totalSteps)
-                println(currentUserProgress)
+               
                 
                 cell.progressBar.setProgress(currentUserProgress, animated: true)
 
@@ -262,6 +268,7 @@ extension ChallengesViewController: UITableViewDataSource {
             cell.endDate.text = "🏁"
 
         }
+    
         
         cell.progressBar.layer.cornerRadius = 22
         cell.progressBar.layer.masksToBounds = true
@@ -272,6 +279,53 @@ extension ChallengesViewController: UITableViewDataSource {
         return cell
     }
     
+    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+    let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        header.contentView.backgroundColor = UIColor.whiteColor()
+        
+        header.textLabel.tintColor = UIColor.redColor()
+        
+    }
+    
+    
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let startDate = NSDate()
+        let endDate = NSCalendar.currentCalendar().dateByAddingUnit(.CalendarUnitDay, value: 1, toDate: startDate, options: nil)
+        var aChallenge : PFObject!
+        
+        if indexPath.section == 0{
+            aChallenge = self.toAcceptChallenges[indexPath.row]
+            
+            aChallenge["startDate"] = startDate
+            aChallenge["endDate"] = endDate!
+            aChallenge["toUserHasAccepted"] = true
+            
+            
+ 
+            aChallenge.saveInBackgroundWithBlock { (success, error) -> Void in
+                if success {
+                    println("saved")  
+                } else {
+                    println("\(error)")
+                }
+            }
+
+        }
+    
+    }
+    
+    
+    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        if indexPath.section != 0{
+            return nil
+        }
+
+        return indexPath
+    }
+    
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var aChallenge : PFObject!
@@ -281,15 +335,22 @@ extension ChallengesViewController: UITableViewDataSource {
         switch indexPath.section
         {
         case 0:
-            aChallenge = self.pendingChallenges[indexPath.row]
+            aChallenge = self.toAcceptChallenges[indexPath.row]
             cell = pendingChallengeCellForChallenge(aChallenge, indexPath:indexPath)
-            
+            self.tableView.rowHeight = 70.0
         case 1:
             aChallenge = self.toUpdateChallenges[indexPath.row]
             cell = challengeCellForChallenge(aChallenge, indexPath:indexPath)
+            self.tableView.rowHeight = 140.0
         case 2:
             aChallenge = self.arrayOfChallenges[indexPath.row]
             cell = challengeCellForChallenge(aChallenge, indexPath:indexPath)
+            self.tableView.rowHeight = 140.0
+        case 3:
+            aChallenge = self.pendingChallenges[indexPath.row]
+            cell = pendingChallengeCellForChallenge(aChallenge, indexPath:indexPath)
+            self.tableView.rowHeight = 70.0
+            
         default:
             println("Invalid section")
         }
@@ -299,32 +360,32 @@ extension ChallengesViewController: UITableViewDataSource {
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "Pending Challenges... tap to begin!" // pending
+            return "Tap to Accept Challenges" // current
         } else if section == 1{
-            return "Current Challenges" //in progress
-        }
-        else {
-            return "Past Challenges" // final challenges
+            return "Current Challenges" //pending
+        } else if section == 2{
+            return "Past Challenges" //final
+        } else {
+            return "Pending Challenges" // pending challenges
         }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0 {
-            return pendingChallenges.count
+            return toAcceptChallenges.count
         } else if section == 1{
             return toUpdateChallenges.count
-        }
-        else {
+        } else if section == 2{
             return arrayOfChallenges.count
+        } else {
+            return pendingChallenges.count
         }
-        
-        
+   
     }
     
-    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
 }
 

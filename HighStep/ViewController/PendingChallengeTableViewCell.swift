@@ -11,7 +11,6 @@ import UIKit
 class PendingChallengeTableViewCell: UITableViewCell {
 
     @IBOutlet weak var challengeUser: UILabel!
-    @IBOutlet weak var challengedYou: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

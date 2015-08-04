@@ -65,12 +65,6 @@ struct HealthKitManager {
         healthStore?.executeQuery(query)
     }
     
-    static func queryStepsFromPastDay(callback: StepsQueryCallBack) {
-        let endDate = NSDate()
-        let startDate = NSCalendar.currentCalendar().dateByAddingUnit(.CalendarUnitDay, value: -1, toDate: endDate, options: nil)
-        
-        HealthKitManager.queryStepsFromDate(startDate!, toDate: endDate, callback: callback)
-    }
     
     
     static func updateChallenge(updateChallenges: Array<PFObject>, withClosure: (isDone: Bool, updatedChalls: Array<PFObject>) -> (Void)) {

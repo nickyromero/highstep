@@ -51,7 +51,7 @@
                                     <constraint firstAttribute="width" constant="345" id="GA9-lD-bqt"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="glN-YA-9PX">
@@ -86,9 +86,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Q4-wv-hbU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2824" y="-576"/>
+            <point key="canvasLocation" x="2832" y="-654"/>
         </scene>
-        <!--👣 -->
+        <!--High👣Step -->
         <scene sceneID="4YT-Fo-HZZ">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="bx7-nh-UgX" customClass="ChallengesViewController" customModule="HighStep" customModuleProvider="target" sceneMemberID="viewController">
@@ -104,15 +104,17 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="challengeUser" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IWz-WR-C7V">
-                                            <rect key="frame" x="204" y="18.5" width="193" height="37"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="31"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <rect key="frame" x="1" y="24" width="598" height="27"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="centerY" secondItem="IWz-WR-C7V" secondAttribute="centerY" id="GmY-vy-pBg"/>
-                                        <constraint firstAttribute="centerX" secondItem="IWz-WR-C7V" secondAttribute="centerX" id="vt8-5M-2tl"/>
+                                        <constraint firstItem="IWz-WR-C7V" firstAttribute="top" secondItem="L0a-Qn-UGR" secondAttribute="topMargin" constant="16" id="9Yg-2Q-gVH"/>
+                                        <constraint firstItem="IWz-WR-C7V" firstAttribute="centerX" secondItem="L0a-Qn-UGR" secondAttribute="centerX" id="ovy-cY-dEb"/>
+                                        <constraint firstItem="IWz-WR-C7V" firstAttribute="leading" secondItem="L0a-Qn-UGR" secondAttribute="leadingMargin" constant="-7" id="qv4-ux-fG2"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="IWz-WR-C7V" secondAttribute="bottom" constant="13.5" id="yh2-ya-HNZ"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -132,17 +134,17 @@
                                                 <constraint firstAttribute="height" constant="21" id="aqI-mP-NAx"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="endDate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acd-dj-aev">
-                                            <rect key="frame" x="199" y="19" width="203" height="20.5"/>
+                                            <rect key="frame" x="199" y="19" width="203" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20.5" id="Kvc-Ux-TE1"/>
                                                 <constraint firstAttribute="width" constant="203" id="OaW-C7-681"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="stepCountChallengeUser" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8N-cQ-cCe">
@@ -152,7 +154,7 @@
                                                 <constraint firstAttribute="width" constant="200" id="xge-KC-8hi"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="challengeUser" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUm-Yt-6e7">
@@ -162,7 +164,7 @@
                                                 <constraint firstAttribute="width" constant="202" id="yLP-P1-PmO"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" placeholderIntrinsicWidth="580" placeholderIntrinsicHeight="50" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="s7U-fC-X0Y">
@@ -182,7 +184,13 @@
                                                 <constraint firstAttribute="height" constant="21" id="kfc-F6-JGL"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="|" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ua8-BZ-f5o">
+                                            <rect key="frame" x="295.5" y="46" width="9" height="48"/>
+                                            <fontDescription key="fontDescription" type="system" weight="thin" pointSize="40"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -196,7 +204,9 @@
                                         <constraint firstItem="OEV-NR-sLj" firstAttribute="top" secondItem="gqX-YH-6xd" secondAttribute="topMargin" id="WLU-md-nTV"/>
                                         <constraint firstItem="OEV-NR-sLj" firstAttribute="leading" secondItem="gqX-YH-6xd" secondAttribute="leadingMargin" constant="4" id="YLU-VG-4um"/>
                                         <constraint firstItem="s7U-fC-X0Y" firstAttribute="leading" secondItem="gqX-YH-6xd" secondAttribute="leadingMargin" constant="2" id="Zdb-lr-Z4R"/>
+                                        <constraint firstAttribute="centerX" secondItem="Ua8-BZ-f5o" secondAttribute="centerX" id="ghY-bP-SwZ"/>
                                         <constraint firstItem="iUm-Yt-6e7" firstAttribute="top" secondItem="gqX-YH-6xd" secondAttribute="topMargin" id="kw0-au-a5x"/>
+                                        <constraint firstAttribute="centerY" secondItem="Ua8-BZ-f5o" secondAttribute="centerY" id="plL-vT-MTE"/>
                                         <constraint firstItem="iUm-Yt-6e7" firstAttribute="trailing" secondItem="gqX-YH-6xd" secondAttribute="trailingMargin" id="sGv-ds-gb3"/>
                                         <constraint firstAttribute="centerX" secondItem="acd-dj-aev" secondAttribute="centerX" id="sjl-3u-tMh"/>
                                         <constraint firstItem="s7U-fC-X0Y" firstAttribute="top" secondItem="acd-dj-aev" secondAttribute="bottom" constant="8.5" id="xhK-lN-2Us"/>
@@ -217,7 +227,7 @@
                             <outlet property="delegate" destination="bx7-nh-UgX" id="FAT-Io-Ft7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="👣 " id="yzr-xv-0mv">
+                    <navigationItem key="navigationItem" title="High👣Step " id="yzr-xv-0mv">
                         <barButtonItem key="backBarButtonItem" title="👣" id="aL8-sB-WAz"/>
                         <barButtonItem key="leftBarButtonItem" title="🔧" width="5" id="Sbj-Ch-qau">
                             <inset key="imageInsets" minX="5" minY="5" maxX="5" maxY="5"/>
@@ -430,7 +440,7 @@
                                                 <constraint firstAttribute="width" constant="210" id="zMu-IF-qen"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o11-9e-QHg">
@@ -440,6 +450,7 @@
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                             <state key="normal" title="Challenge!">
+                                                <color key="titleColor" red="0.69019607843137254" green="0.039215686274509803" blue="0.12549019607843137" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
