@@ -343,7 +343,7 @@ extension ChallengesViewController: UITableViewDataSource {
             cell = pendingChallengeCellForChallenge(aChallenge, indexPath:indexPath)
             self.tableView.rowHeight = 70.0
         case 1:
-            aChallenge = self.toUpdateChallenges[indexPath.row]
+            aChallenge = self.toUpdateChallenges.reverse()[indexPath.row]
             cell = challengeCellForChallenge(aChallenge, indexPath:indexPath)
             self.tableView.rowHeight = 140.0
         case 2:
