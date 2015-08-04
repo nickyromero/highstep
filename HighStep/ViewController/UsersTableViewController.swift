@@ -153,12 +153,42 @@ class UsersTableViewController: UITableViewController, UITableViewDataSource, UI
 
     }
 
+    
+    
+    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        
+        return nil
+    }
 
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+      
+        
+        if (searchActive){
+            return "Search Results.. Tap Challenge!"
+        } else{
+        
+        return "Recent Challengers"
+        }
+}
+    
+    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        header.contentView.backgroundColor = UIColor.whiteColor()
+        
+        header.textLabel.textColor = UIColor.whiteColor()
+        header.contentView.backgroundColor =  UIColor(red: 192/255, green: 31/255, blue: 41/255, alpha: 1)
+        
+        
+        
+    }
 
 
 }
-
-
 
     /*
     // Override to support conditional editing of the table view.

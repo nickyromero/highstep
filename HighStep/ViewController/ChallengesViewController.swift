@@ -151,23 +151,19 @@ extension ChallengesViewController: UITableViewDataSource {
     func pendingChallengeCellForChallenge(aChallenge: PFObject, indexPath: NSIndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCellWithIdentifier("PendingChallengeCell", forIndexPath: indexPath) as! PendingChallengeTableViewCell
         
-       
-        
-        let startDate = NSDate()
-        let endDate = NSCalendar.currentCalendar().dateByAddingUnit(.CalendarUnitHour, value: 5, toDate: startDate, options: nil)
-
-        
-        
         let fromUser = aChallenge["fromUser"] as? PFUser
         let toUser = aChallenge["toUser"] as? PFUser
         
         if  (PFUser.currentUser()?.username == fromUser?.username) {
-        cell.challengeUser.text = "Waiting for \(toUser!.username!) to accpet!"
+        cell.challengeUser.text = "waiting for \(toUser!.username!) to accpet!"
         
         } else{
-            cell.challengeUser.text = "Accept challenge from \(fromUser!.username!)"
+            cell.challengeUser.text = "accept challenge from \(fromUser!.username!)"
         }
  
+        cell.challengeUser.textColor = UIColor(red:  192/255, green: 31/255, blue: 41/255, alpha: 1)
+
+        
         return cell
         
         
@@ -186,7 +182,6 @@ extension ChallengesViewController: UITableViewDataSource {
         
         let endDate = aChallenge["endDate"] as? NSDate
         let formatter = NSDateFormatter()
-        formatter.dateStyle = NSDateFormatterStyle.ShortStyle
         formatter.timeStyle = NSDateFormatterStyle.ShortStyle
         cell.endDate.text =  formatter.stringFromDate(endDate!)
         
