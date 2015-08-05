@@ -14,15 +14,11 @@ class UsersTableViewController: UITableViewController, UITableViewDataSource, UI
     var users : [PFUser] = []
     var searchActive : Bool = false
     @IBOutlet weak var userSearchBar: UISearchBar!
-    
     var filtered:[PFUser] = []
-
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         userSearchBar.delegate = self
@@ -85,30 +81,19 @@ class UsersTableViewController: UITableViewController, UITableViewDataSource, UI
         
         let cell = tableView.dequeueReusableCellWithIdentifier("userCell", forIndexPath: indexPath) as! UsersTableViewCell
         
-        
-        
         var aUser : PFUser
         if(searchActive){
             aUser = filtered[indexPath.row]
         } else {
             aUser = self.users[indexPath.row]
         }
-        
-        
 
-//        cell.textLabel?.text = aUser.username
         cell.userBeingChallenged = aUser
         cell.userNames.text = aUser.username
         
- 
-
         return cell
-    
-    
     }
- 
-    
-    
+
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         searchActive = true;
     }
@@ -128,12 +113,6 @@ class UsersTableViewController: UITableViewController, UITableViewDataSource, UI
    
 
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        
-//        filtered = PFQUery.filter({ (text) -> Bool in
-//            let tmp: NSString = text
-//            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
-//            return range.location != NSNotFound
-//        })
 
         if(count(searchText) == 0){
             searchActive = false;
@@ -150,11 +129,8 @@ class UsersTableViewController: UITableViewController, UITableViewDataSource, UI
                 }
             }
         }
-
     }
 
-    
-    
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         
         return nil
@@ -171,7 +147,7 @@ class UsersTableViewController: UITableViewController, UITableViewDataSource, UI
             return "Search Results.. Tap Challenge!"
         } else{
         
-        return "Recent Challengers"
+        return "\(users.count) Recent Challengers"
         }
 }
     
@@ -180,10 +156,12 @@ class UsersTableViewController: UITableViewController, UITableViewDataSource, UI
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         header.contentView.backgroundColor = UIColor.whiteColor()
         
-        header.textLabel.textColor = UIColor.whiteColor()
-        header.contentView.backgroundColor =  UIColor(red: 192/255, green: 31/255, blue: 41/255, alpha: 1)
+        header.textLabel.textColor = UIColor(red: 192/255, green: 31/255, blue: 41/255, alpha: 1)
+        header.contentView.backgroundColor =  UIColor.whiteColor()
+        header.textLabel.font = UIFont(name: "SFUIDisplay-Thin", size: 15)!
         
         
+
         
     }
 

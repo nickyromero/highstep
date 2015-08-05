@@ -89,7 +89,9 @@ class SignUpViewController: UIViewController {
                 } else{
                     var alert = UIAlertView(title: "Success", message: "Signed Up!", delegate: self, cancelButtonTitle: "OK")
                     alert.show()
-                    self.performSegueWithIdentifier("signupComplete", sender: self)
+                    self.navigationController?.popViewControllerAnimated(true)
+                    
+
                 }
             })
         }

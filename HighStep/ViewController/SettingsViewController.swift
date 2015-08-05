@@ -16,6 +16,7 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
     
 
     @IBOutlet weak var welcomeUser: UILabel!
+    @IBOutlet weak var alertEmoji: UILabel!
     
     
     override func viewDidLoad() {
@@ -26,16 +27,6 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
         self.actInd.activityIndicatorViewStyle  = UIActivityIndicatorViewStyle.Gray
         
         view.addSubview(self.actInd)
-        
-        if PFUser.currentUser() != nil {
-            var user: String = PFUser.currentUser()!.username!
-        welcomeUser.text = "Welcome \(user)!"
-        } else{
-            welcomeUser.text = "Welcome to High Step"
-        }
-        
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -44,7 +35,14 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
+    
+        if PFUser.currentUser() != nil {
+            var user: String = PFUser.currentUser()!.username!
+            welcomeUser.text = "Welcome \(user)!"
+        } else{
+            welcomeUser.text = "Welcome to High Step"
+        }
+
         
     }
 

@@ -55,8 +55,8 @@ class LoginViewController: UIViewController{
                     
                     var alert = UIAlertView(title: "Success", message: "Logged In", delegate: self, cancelButtonTitle: "OK")
                     alert.show()
+                    self.navigationController?.popViewControllerAnimated(true)
                     
-                    self.performSegueWithIdentifier("loginComplete", sender: self)
                     
                 } else{
                     var alert = UIAlertView(title: "Error", message: "Hmm... that did not work, try again!", delegate: self, cancelButtonTitle: "OK")
