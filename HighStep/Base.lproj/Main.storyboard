@@ -194,6 +194,11 @@
                                                 <constraint firstAttribute="height" constant="50" id="zYL-mF-dbq"/>
                                             </constraints>
                                             <color key="trackTintColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="xyi-8C-0Dm"/>
+                                                </mask>
+                                            </variation>
                                         </progressView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="stepCountCurrentUser" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLH-Cs-pzN">
                                             <rect key="frame" x="12" y="100" width="257" height="29"/>
@@ -226,6 +231,7 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="iUm-Yt-6e7" secondAttribute="trailing" constant="4" id="7YT-h7-gau"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="KLH-Cs-pzN" secondAttribute="bottom" constant="3" id="BKo-Sq-b9i"/>
                                         <constraint firstAttribute="centerY" secondItem="s7U-fC-X0Y" secondAttribute="centerY" id="ByZ-Nd-XbJ"/>
+                                        <constraint firstItem="s7U-fC-X0Y" firstAttribute="top" secondItem="iUm-Yt-6e7" secondAttribute="bottom" constant="5" id="GII-oQ-fnQ"/>
                                         <constraint firstItem="KLH-Cs-pzN" firstAttribute="leading" secondItem="gqX-YH-6xd" secondAttribute="leadingMargin" constant="4" id="GmD-Ot-BFf"/>
                                         <constraint firstItem="s7U-fC-X0Y" firstAttribute="leading" secondItem="gqX-YH-6xd" secondAttribute="leadingMargin" constant="2" id="Ii6-fm-UAb"/>
                                         <constraint firstItem="OEV-NR-sLj" firstAttribute="leading" secondItem="gqX-YH-6xd" secondAttribute="leadingMargin" constant="4" id="LGq-O4-IUR"/>
@@ -240,6 +246,11 @@
                                         <constraint firstAttribute="centerX" secondItem="s7U-fC-X0Y" secondAttribute="centerX" id="yJt-Ed-Ek2"/>
                                         <constraint firstAttribute="centerX" secondItem="ORE-td-txF" secondAttribute="centerX" id="zR1-dQ-3YX"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="ByZ-Nd-XbJ"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="challengeUser" destination="iUm-Yt-6e7" id="y9V-A2-LTD"/>
@@ -562,7 +573,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MY1-p4-t6V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2394" y="743"/>
+            <point key="canvasLocation" x="2204" y="29"/>
         </scene>
     </scenes>
     <resources>

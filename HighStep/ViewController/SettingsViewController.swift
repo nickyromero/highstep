@@ -15,12 +15,15 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
     
 
+    
+    
     @IBOutlet weak var welcomeUser: UILabel!
-    @IBOutlet weak var alertEmoji: UILabel!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
         self.actInd.center = self.view.center
         self.actInd.hidesWhenStopped = true

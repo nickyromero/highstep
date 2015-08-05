@@ -16,6 +16,8 @@ class ChallengesViewController: UITableViewController {
     var toUpdateChallenges: [PFObject] = []
     var pendingChallenges: [PFObject] = []
     var toAcceptChallenges: [PFObject] = []
+    var actInd: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
+
     
     func refresh(sender: UIRefreshControl){
         self.queryChallenges()
@@ -28,10 +30,16 @@ class ChallengesViewController: UITableViewController {
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl!)
-    
+        
         var attributes = [NSForegroundColorAttributeName: UIColor(red:  192/255, green: 31/255, blue: 41/255, alpha: 1),
             NSFontAttributeName: UIFont(name: "SFUIDisplay-Thin", size: 33)!]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
+        
+        self.actInd.center = self.view.center
+        self.actInd.activityIndicatorViewStyle  = UIActivityIndicatorViewStyle.Gray
+        
+        view.addSubview(self.actInd)
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -40,14 +48,11 @@ class ChallengesViewController: UITableViewController {
             performSegueWithIdentifier("toSettings", sender: self)
             return
         }
-        
-        
-        queryChallenges()
-        self.tableView.reloadData()
+            queryChallenges()
+       
     }
     
     func queryChallenges() {
-        
         var fromQuery = PFQuery(className: "Challenge")
         fromQuery.whereKey("fromUser", equalTo: PFUser.currentUser()!)
         let toQuery = PFQuery(className: "Challenge")
@@ -71,7 +76,7 @@ class ChallengesViewController: UITableViewController {
         arrayOfChallenges.removeAll(keepCapacity: true)
         pendingChallenges.removeAll(keepCapacity: true)
         toAcceptChallenges.removeAll(keepCapacity: true)
-
+        
         // could put on diff thread
         for challenge in challenges {
             
@@ -84,31 +89,34 @@ class ChallengesViewController: UITableViewController {
                 if PFUser.currentUser()?.username! == toUser.username! {
                     toAcceptChallenges.append(challenge)
                 } else{
-                pendingChallenges.append(challenge)
+                    pendingChallenges.append(challenge)
                 }
                 
             } else{
-            // create a method to pass the single challenge into a check for completion
-            var endDate = challenge["endDate"] as! NSDate
-            var updatedAt = challenge.updatedAt!
-            var fromUserStepCount = challenge["stepCountFromUser"] as? Int
-            var toUserStepCount = challenge["stepCountToUser"] as? Int
-            let challengeIsFinal: Bool = (endDate < NSDate()) && (updatedAt > endDate) && (toUserStepCount != nil)  && (fromUserStepCount != nil)
-            
-            if (challengeIsFinal) {
-                // final - no more updating for these challenges
-                arrayOfChallenges.append(challenge)
-            } else {
-                // challenge expired, now just needs to update final step count for current user
-                toUpdateChallenges.append(challenge)
+                // create a method to pass the single challenge into a check for completion
+                var endDate = challenge["endDate"] as! NSDate
+                var updatedAt = challenge.updatedAt!
+                var fromUserStepCount = challenge["stepCountFromUser"] as? Int
+                var toUserStepCount = challenge["stepCountToUser"] as? Int
+                let challengeIsFinal: Bool = (endDate < NSDate()) && (updatedAt > endDate) && (toUserStepCount != nil)  && (fromUserStepCount != nil)
+                
+                if (challengeIsFinal) {
+                    // final - no more updating for these challenges
+                    arrayOfChallenges.append(challenge)
+                } else {
+                    // challenge expired, now just needs to update final step count for current user
+                    toUpdateChallenges.append(challenge)
+                }
             }
         }
-    }
+        
         updateCurrentUserStepCount()
         println("time left challenges: \(toUpdateChallenges.count)")
         println("completed FINAL: \(arrayOfChallenges.count)")
         println("pending: \(pendingChallenges.count)")
         println("to be Accepted: \(toAcceptChallenges.count)")
+        
+        self.tableView.reloadData()
     }
     
     
@@ -135,7 +143,7 @@ class ChallengesViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
     //    MARK: ACTIONS
     @IBAction func settingsButtonTapped(sender: UIBarButtonItem) {
         performSegueWithIdentifier("toSettings", sender: sender)
@@ -156,19 +164,19 @@ extension ChallengesViewController: UITableViewDataSource {
         let toUser = aChallenge["toUser"] as? PFUser
         
         if  (PFUser.currentUser()?.username == fromUser?.username) {
-        cell.challengeUser.text = "waiting for \(toUser!.username!) to accpet!"
-        
+            cell.challengeUser.text = "waiting for \(toUser!.username!) to accpet!"
+            
         } else{
             cell.challengeUser.text = "accept challenge from \(fromUser!.username!)"
         }
         cell.challengeUser.textColor = UIColor(red:  192/255, green: 31/255, blue: 41/255, alpha: 1)
-
+        
         return cell
     }
     
     func challengeCellForChallenge(aChallenge: PFObject, indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ChallengeCell", forIndexPath: indexPath) as! ChallengeTableViewCell
- 
+        
         let fromUser = aChallenge["fromUser"] as? PFUser
         let toUser = aChallenge["toUser"] as? PFUser
         
@@ -212,24 +220,24 @@ extension ChallengesViewController: UITableViewDataSource {
             
             let stepFromString = stepCountFromUser!.description
             let stepToString = stepCountToUser!.description
-
+            
             cell.stepCountCurrentUser.text = "\(stepToString) steps"
             cell.stepCountChallengeUser.text = "\(stepFromString) steps"
             
             
-                        if endDate < NSDate() && stepCountFromUser > stepCountToUser{
-                            cell.challengeUser.text = "🏆 \(fromUser!.username!)"
-            
-            
-                        } else if (endDate < NSDate() && stepCountFromUser < stepCountToUser){
-                            cell.currentUser.text = "\(toUser!.username!) 🏆"
-            
-                        }
+            if endDate < NSDate() && stepCountFromUser > stepCountToUser{
+                cell.challengeUser.text = "🏆 \(fromUser!.username!)"
+                
+                
+            } else if (endDate < NSDate() && stepCountFromUser < stepCountToUser){
+                cell.currentUser.text = "\(toUser!.username!) 🏆"
+                
+            }
             
             if let stepCountFromUser = stepCountFromUser, let stepCountToUser = stepCountToUser {
                 let totalSteps = (stepCountFromUser + stepCountToUser)
                 var currentUserProgress = Float(stepCountToUser) / Float(totalSteps)
-       
+                
                 cell.progressBar.setProgress(currentUserProgress, animated: true)
             }
         }
@@ -237,23 +245,23 @@ extension ChallengesViewController: UITableViewDataSource {
         if endDate < NSDate(){
             cell.endDate.text = "🏁"
         }
-
+        
         cell.progressBar.layer.cornerRadius = 22
         cell.progressBar.layer.masksToBounds = true
         cell.progressBar.clipsToBounds = true
-
+        
         return cell
     }
     
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         
-    let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         header.contentView.backgroundColor = UIColor.whiteColor()
         
         header.textLabel.textColor = UIColor(red: 192/255, green: 31/255, blue: 41/255, alpha: 1)
         header.contentView.backgroundColor =  UIColor.whiteColor()
         header.textLabel.font = UIFont(name: "SFUIDisplay-Thin", size: 15)!
- 
+        
     }
     
     
@@ -272,7 +280,7 @@ extension ChallengesViewController: UITableViewDataSource {
             aChallenge["toUserHasAccepted"] = true
             
             
- 
+            
             aChallenge.saveInBackgroundWithBlock { (success, error) -> Void in
                 if success {
                     println("saved")
@@ -345,7 +353,7 @@ extension ChallengesViewController: UITableViewDataSource {
         } else {
             return pendingChallenges.count
         }
-   
+        
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

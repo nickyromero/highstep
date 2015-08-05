@@ -26,12 +26,12 @@ struct HealthKitManager {
     func setupHealthStoreIfPossible(completion: ((Bool, NSError!) -> Void)!) {
         
         let stepType = HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)
-        
-        let distanceType = HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDistanceWalkingRunning)
+//        
+//        let distanceType = HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDistanceWalkingRunning)
         
         let typeSet: NSMutableSet = NSMutableSet()
         typeSet.addObject(stepType)
-        typeSet.addObject(distanceType)
+//        typeSet.addObject(distanceType)
         
         if HKHealthStore.isHealthDataAvailable()
         {
