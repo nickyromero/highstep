@@ -13,22 +13,24 @@ import ParseUI
 class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate {
 
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
-    
+
+    let defaults = NSUserDefaults.standardUserDefaults()
 
     
+    @IBOutlet weak var iDontHaveAccountOutlet: UIButton!
+    @IBOutlet weak var loginOutlet: UIButton!
+    @IBOutlet weak var logoutOutlet: UIButton!
     
+    @IBOutlet weak var authorizeHDButton: UIButton!
+    @IBOutlet weak var alert: UILabel!
     @IBOutlet weak var welcomeUser: UILabel!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
         self.actInd.center = self.view.center
         self.actInd.hidesWhenStopped = true
         self.actInd.activityIndicatorViewStyle  = UIActivityIndicatorViewStyle.Gray
-        
         view.addSubview(self.actInd)
     }
     
@@ -36,16 +38,34 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
         super.didReceiveMemoryWarning()
     }
     
+    
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
     
-        if PFUser.currentUser() != nil {
-            var user: String = PFUser.currentUser()!.username!
-            welcomeUser.text = "Welcome \(user)!"
+        
+        if  defaults.boolForKey("Authorize") == false{
+            welcomeUser.text = "Click AUTHORIZE Button"
+            authorizeHDButton.hidden = false
+            alert.text = "🚨"
         } else{
-            welcomeUser.text = "Welcome to High Step"
-        }
+            alert.text = ""
+            self.authorizeHDButton.hidden = true
 
+
+            if PFUser.currentUser() != nil {
+                var user: String = PFUser.currentUser()!.username!
+                welcomeUser.text = "Welcome \(user)!"
+                loginOutlet.hidden = true
+                iDontHaveAccountOutlet.hidden = true
+                logoutOutlet.hidden = false
+                
+            } else{
+                welcomeUser.text = "Welcome!"
+              
+            }
+
+        }
         
     }
 
@@ -60,8 +80,15 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
     
     @IBAction func authorizeHealthData() {
         healthKitManager.setupHealthStoreIfPossible { (success:Bool, error: NSError!) -> Void in
-            println("Completed")
+    
+            self.defaults.setBool(true, forKey: "Authorize")
+            self.authorizeHDButton.hidden = true
+
         }
+        self.alert.text = ""
+        self.welcomeUser.text = "Welcome!"
+        
+        
     }
     
     @IBAction func loginButton(sender: UIButton) {
@@ -74,8 +101,13 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
      var alert = UIAlertView(title: "Invalid", message: "Already logged in!", delegate: self, cancelButtonTitle: "OK")
             alert.show()
         }
+        
+        
+        
     
     }
+    
+    
     
     @IBAction func logoutButton(sender: UIButton) {
         if PFUser.currentUser() == nil{
@@ -89,11 +121,18 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
         println("\(currentUser) is about to be logged out!")
         
         PFUser.logOut()
+            loginOutlet.hidden = false
+            iDontHaveAccountOutlet.hidden = false
+            logoutOutlet.hidden = true
+            
+            
         
         currentUser = PFUser.currentUser()?.username
         
         if currentUser != nil{
             println("Failed Attempt to LogOut")
+            
+           
         } else{
             println("Successful LogOut")
         }

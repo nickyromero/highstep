@@ -10,10 +10,12 @@ import UIKit
 import Parse
 
 
-class LoginViewController: UIViewController{
+class LoginViewController: UIViewController, UITextFieldDelegate{
 
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    
+
     
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
     
@@ -25,6 +27,22 @@ class LoginViewController: UIViewController{
         self.actInd.activityIndicatorViewStyle  = UIActivityIndicatorViewStyle.Gray
         
         view.addSubview(self.actInd)
+        
+        self.usernameField.becomeFirstResponder()
+        self.usernameField.autocapitalizationType = UITextAutocapitalizationType.None
+        
+        
+    }
+    
+    
+     func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == usernameField{
+            passwordField.becomeFirstResponder()
+        } else{
+            passwordField.resignFirstResponder()
+        }
+        return true
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -72,10 +90,6 @@ class LoginViewController: UIViewController{
         }
     }
     
-    
-    @IBAction func signUpButton(sender: UIButton) {
-        self.performSegueWithIdentifier("signup", sender: sender)
-    }
     
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {

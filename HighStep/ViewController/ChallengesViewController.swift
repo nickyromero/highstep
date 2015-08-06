@@ -164,7 +164,7 @@ extension ChallengesViewController: UITableViewDataSource {
         let toUser = aChallenge["toUser"] as? PFUser
         
         if  (PFUser.currentUser()?.username == fromUser?.username) {
-            cell.challengeUser.text = "waiting for \(toUser!.username!) to accpet!"
+            cell.challengeUser.text = "waiting for \(toUser!.username!) to accept!"
             
         } else{
             cell.challengeUser.text = "accept challenge from \(fromUser!.username!)"

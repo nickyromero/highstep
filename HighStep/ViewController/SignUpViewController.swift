@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var usernameField: UITextField!
@@ -24,13 +24,25 @@ class SignUpViewController: UIViewController {
         self.actInd.hidesWhenStopped = true
         self.actInd.activityIndicatorViewStyle  = UIActivityIndicatorViewStyle.Gray
         view.addSubview(self.actInd)
+        
+        self.usernameField.autocapitalizationType = UITextAutocapitalizationType.None
+        self.emailField.becomeFirstResponder()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == emailField{
+            usernameField.becomeFirstResponder()
+        } else if textField == usernameField{
+            passwordField.becomeFirstResponder()
+        } else{
+            passwordField.resignFirstResponder()
+        }
+        return true
+    }
     
     //MARK: ACTIONS
     
