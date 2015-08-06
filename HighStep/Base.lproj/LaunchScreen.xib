@@ -4,11 +4,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="SF-UI-Display-Bold.otf">
+            <string>SFUIDisplay-Bold</string>
+        </mutableArray>
         <mutableArray key="SF-UI-Display-Thin.otf">
             <string>SFUIDisplay-Thin</string>
-        </mutableArray>
-        <mutableArray key="SF-UI-Display-Ultralight.otf">
-            <string>SFUIDisplay-Ultralight</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -28,21 +28,22 @@
                     <color key="textColor" red="0.69019607839999997" green="0.039215686270000001" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HighStep👣" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX">
+                    <rect key="frame" x="165" y="66" width="150" height="33.5"/>
+                    <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="28"/>
+                    <color key="textColor" red="0.68235294120000001" green="0.050980392159999999" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="b8a-k6-Isv">
                     <rect key="frame" x="120" y="120" width="240" height="240"/>
+                    <color key="backgroundColor" red="0.68235294120000001" green="0.050980392159999999" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="240" id="j8L-mS-iTd"/>
                         <constraint firstAttribute="height" constant="240" id="zdG-Mh-02V"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HighStep" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX">
-                    <rect key="frame" x="188.5" y="66.5" width="104" height="33.5"/>
-                    <fontDescription key="fontDescription" name="SFUIDisplay-Ultralight" family="SF UI Display" pointSize="28"/>
-                    <color key="textColor" red="0.69019607839999997" green="0.039215686270000001" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="20" id="Cmw-N6-T7d"/>
                 <constraint firstAttribute="centerX" secondItem="b8a-k6-Isv" secondAttribute="centerX" id="Jmg-cv-ZEG"/>

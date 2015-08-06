@@ -8,13 +8,16 @@
         <mutableArray key="SF-UI-Display-Heavy.otf">
             <string>SFUIDisplay-Heavy</string>
         </mutableArray>
+        <mutableArray key="SF-UI-Display-Light.otf">
+            <string>SFUIDisplay-Light</string>
+            <string>SFUIDisplay-Light</string>
+            <string>SFUIDisplay-Light</string>
+            <string>SFUIDisplay-Light</string>
+            <string>SFUIDisplay-Light</string>
+            <string>SFUIDisplay-Light</string>
+            <string>SFUIDisplay-Light</string>
+        </mutableArray>
         <mutableArray key="SF-UI-Display-Thin.otf">
-            <string>SFUIDisplay-Thin</string>
-            <string>SFUIDisplay-Thin</string>
-            <string>SFUIDisplay-Thin</string>
-            <string>SFUIDisplay-Thin</string>
-            <string>SFUIDisplay-Thin</string>
-            <string>SFUIDisplay-Thin</string>
             <string>SFUIDisplay-Thin</string>
             <string>SFUIDisplay-Thin</string>
             <string>SFUIDisplay-Thin</string>
@@ -146,7 +149,7 @@
             </objects>
             <point key="canvasLocation" x="3590" y="-608"/>
         </scene>
-        <!--High👣Step -->
+        <!--highstep👣-->
         <scene sceneID="4YT-Fo-HZZ">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="bx7-nh-UgX" customClass="ChallengesViewController" customModule="HighStep" customModuleProvider="target" sceneMemberID="viewController">
@@ -163,7 +166,7 @@
                                     <subviews>
                                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="challengeUser" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IWz-WR-C7V">
                                             <rect key="frame" x="10" y="23" width="580" height="26.5"/>
-                                            <fontDescription key="fontDescription" name="SFUIDisplay-Thin" family="SF UI Display" pointSize="22"/>
+                                            <fontDescription key="fontDescription" name="SFUIDisplay-Light" family="SF UI Display" pointSize="22"/>
                                             <color key="textColor" red="0.69019607839999997" green="0.039215686270000001" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -191,7 +194,7 @@
                                                 <constraint firstAttribute="width" constant="195" id="2Cw-0y-27I"/>
                                                 <constraint firstAttribute="height" constant="29" id="yP6-fe-tQK"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="SFUIDisplay-Thin" family="SF UI Display" pointSize="20"/>
+                                            <fontDescription key="fontDescription" name="SFUIDisplay-Light" family="SF UI Display" pointSize="20"/>
                                             <color key="textColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -201,7 +204,7 @@
                                                 <constraint firstAttribute="height" constant="21" id="8kK-Fv-Or2"/>
                                                 <constraint firstAttribute="width" constant="203" id="LSP-a3-ZCY"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="SFUIDisplay-Thin" family="SF UI Display" pointSize="17"/>
+                                            <fontDescription key="fontDescription" name="SFUIDisplay-Light" family="SF UI Display" pointSize="17"/>
                                             <color key="textColor" red="0.69019607839999997" green="0.039215686270000001" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -211,7 +214,7 @@
                                                 <constraint firstAttribute="height" constant="29" id="86c-xQ-87H"/>
                                                 <constraint firstAttribute="width" constant="202" id="a86-oZ-yPh"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="SFUIDisplay-Thin" family="SF UI Display" pointSize="20"/>
+                                            <fontDescription key="fontDescription" name="SFUIDisplay-Light" family="SF UI Display" pointSize="20"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -236,7 +239,7 @@
                                                 <constraint firstAttribute="height" constant="28.5" id="Nwi-7i-GSb"/>
                                                 <constraint firstAttribute="width" constant="257" id="fuT-jh-Xz2"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="SFUIDisplay-Thin" family="SF UI Display" pointSize="24"/>
+                                            <fontDescription key="fontDescription" name="SFUIDisplay-Light" family="SF UI Display" pointSize="24"/>
                                             <color key="textColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -252,8 +255,14 @@
                                                 <constraint firstAttribute="height" constant="29" id="0Do-Tn-uGh"/>
                                                 <constraint firstAttribute="width" constant="266" id="0Dr-T4-5Y7"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="SFUIDisplay-Thin" family="SF UI Display" pointSize="24"/>
+                                            <fontDescription key="fontDescription" name="SFUIDisplay-Light" family="SF UI Display" pointSize="24"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="steps" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RBg-TS-gnj">
+                                            <rect key="frame" x="278" y="104" width="44" height="23"/>
+                                            <fontDescription key="fontDescription" name="SFUIDisplay-Light" family="SF UI Display" pointSize="19"/>
+                                            <color key="textColor" red="0.69019607839999997" green="0.039215686270000001" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -272,6 +281,8 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="s7U-fC-X0Y" secondAttribute="trailing" constant="2" id="f9c-ZI-VXM"/>
                                         <constraint firstItem="iUm-Yt-6e7" firstAttribute="top" secondItem="gqX-YH-6xd" secondAttribute="topMargin" constant="3" id="g1g-cy-I64"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="G8N-cQ-cCe" secondAttribute="trailing" constant="4" id="hQu-5c-JZV"/>
+                                        <constraint firstItem="RBg-TS-gnj" firstAttribute="top" secondItem="ORE-td-txF" secondAttribute="bottom" constant="17" id="hbk-It-Hmg"/>
+                                        <constraint firstAttribute="centerX" secondItem="RBg-TS-gnj" secondAttribute="centerX" id="iDu-qq-eNf"/>
                                         <constraint firstAttribute="centerY" secondItem="ORE-td-txF" secondAttribute="centerY" id="xWR-lh-VTz"/>
                                         <constraint firstAttribute="centerX" secondItem="s7U-fC-X0Y" secondAttribute="centerX" id="yJt-Ed-Ek2"/>
                                         <constraint firstAttribute="centerX" secondItem="ORE-td-txF" secondAttribute="centerX" id="zR1-dQ-3YX"/>
@@ -297,9 +308,9 @@
                             <outlet property="delegate" destination="bx7-nh-UgX" id="FAT-Io-Ft7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="High👣Step " id="yzr-xv-0mv">
+                    <navigationItem key="navigationItem" title="highstep👣" id="yzr-xv-0mv">
                         <barButtonItem key="backBarButtonItem" title="👣" id="aL8-sB-WAz"/>
-                        <barButtonItem key="leftBarButtonItem" title="🔧" width="5" id="Sbj-Ch-qau">
+                        <barButtonItem key="leftBarButtonItem" title="🔩" width="5" id="Sbj-Ch-qau">
                             <inset key="imageInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                             <connections>
                                 <action selector="settingsButtonTapped:" destination="bx7-nh-UgX" id="UBv-c9-jDE"/>

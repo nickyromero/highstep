@@ -14,20 +14,48 @@ typealias StepsQueryCallBack = (Double) -> ()
 
 
 struct HealthKitManager {
+    static let stepType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)
+    
+    static var predicate: NSPredicate = {
+        let now = NSDate()
+        let yesterday =
+        NSCalendar.currentCalendar().dateByAddingUnit(.CalendarUnitDay,
+            value: -1,
+            toDate: now,
+            options: .WrapComponents)
+        
+        return HKQuery.predicateForSamplesWithStartDate(yesterday,
+            endDate: now,
+            options: .StrictEndDate)
+        }()
+    
+    static var query: HKObserverQuery = {
+        return HKObserverQuery(sampleType: stepType,
+            predicate: predicate,
+            updateHandler: { (query, completionHandler, error) -> Void in
+               
+                /* Be careful, we are not on the UI thread */
+                HealthKitManager.updateAllSteps()
+                
+                completionHandler()
+        })
+    }()
+    
+    
     static let healthStore: HKHealthStore? = {
         if HKHealthStore.isHealthDataAvailable() {
             return HKHealthStore()
         } else {
             return nil
         }
-    }()
+        }()
     
     
     func setupHealthStoreIfPossible(completion: ((Bool, NSError!) -> Void)!) {
         
         
         let stepType = HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)
-
+        
         let typeSet: NSMutableSet = NSMutableSet()
         typeSet.addObject(stepType)
         
@@ -35,12 +63,48 @@ struct HealthKitManager {
         {
             HealthKitManager.healthStore?.requestAuthorizationToShareTypes(nil, readTypes: typeSet as Set<NSObject>, completion: { (success, error) -> Void in
                 completion(success, error)
+                HealthKitManager.healthStore?.executeQuery(HealthKitManager.query)
+                HealthKitManager.healthStore?.enableBackgroundDeliveryForType(stepType,
+                    frequency: .Immediate,
+                    withCompletion: {succeeded, error in
+                        
+                        if succeeded{
+                            print("Enabled background delivery of weight changes")
+                        } else {
+                            if let theError = error{
+                                print("Failed to enable background delivery of weight changes. ")
+                                print("Error = \(theError)")
+                            }
+                        }
+                        
+                })
+                
             })
         }
     }
     
+    static func updateAllSteps() {
+        if let user = PFUser.currentUser() {
+            var fromQuery = PFQuery(className: "Challenge")
+            fromQuery.whereKey("fromUser", equalTo: user)
+            let toQuery = PFQuery(className: "Challenge")
+            toQuery.whereKey("toUser", equalTo: user)
+            let query = PFQuery.orQueryWithSubqueries([fromQuery, toQuery])
+            query.whereKey("endDate", greaterThanOrEqualTo: NSDate())
+            query.includeKey("fromUser")
+            query.includeKey("toUser")
+            query.orderByDescending("endDate")
+            query.findObjectsInBackgroundWithBlock { (objects:[AnyObject]?, error: NSError?) -> Void in
+                if let challenges = objects as? [PFObject] {
+                    HealthKitManager.updateChallenge(challenges, withClosure: { (isDone, updatedChalls) -> (Void) in
+                        PFObject.saveAllInBackground(challenges, block: nil)
+                    })
+                }
+            }
+        }
+    }
+    
     static func queryStepsFromDate(startDate: NSDate, toDate endDate: NSDate, callback: StepsQueryCallBack) {
-        let stepType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)
         let predicate = HKQuery.predicateForSamplesWithStartDate(startDate, endDate: endDate, options: .None)
         
         let query = HKSampleQuery(sampleType: stepType, predicate: predicate, limit: 0, sortDescriptors: nil, resultsHandler: {
@@ -60,7 +124,7 @@ struct HealthKitManager {
             }
         })
         
-        healthStore?.executeQuery(query)
+        self.healthStore?.executeQuery(query)
     }
     
     
@@ -94,7 +158,7 @@ struct HealthKitManager {
                 }
             })
         }
-
+        
     }
     
     

@@ -32,7 +32,7 @@ class ChallengesViewController: UITableViewController {
         self.tableView.addSubview(refreshControl!)
         
         var attributes = [NSForegroundColorAttributeName: UIColor(red:  192/255, green: 31/255, blue: 41/255, alpha: 1),
-            NSFontAttributeName: UIFont(name: "SFUIDisplay-Thin", size: 33)!]
+            NSFontAttributeName: UIFont(name: "SFUIDisplay-Bold", size: 33)!]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
         
         self.actInd.center = self.view.center
@@ -194,8 +194,8 @@ extension ChallengesViewController: UITableViewDataSource {
             let stepFromString = stepCountFromUser!.description
             let stepToString = stepCountToUser!.description
             
-            cell.stepCountCurrentUser.text = "\(stepFromString) steps"
-            cell.stepCountChallengeUser.text = "\(stepToString) steps"
+            cell.stepCountCurrentUser.text = "\(stepFromString)"
+            cell.stepCountChallengeUser.text = "\(stepToString)"
             
             if let stepCountFromUser = stepCountFromUser, let stepCountToUser = stepCountToUser {
                 let totalSteps = (stepCountFromUser + stepCountToUser)
@@ -220,8 +220,8 @@ extension ChallengesViewController: UITableViewDataSource {
             let stepFromString = stepCountFromUser!.description
             let stepToString = stepCountToUser!.description
             
-            cell.stepCountCurrentUser.text = "\(stepToString) steps"
-            cell.stepCountChallengeUser.text = "\(stepFromString) steps"
+            cell.stepCountCurrentUser.text = "\(stepToString)"
+            cell.stepCountChallengeUser.text = "\(stepFromString)"
             
             
             if endDate < NSDate() && stepCountFromUser > stepCountToUser{
