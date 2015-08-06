@@ -44,6 +44,7 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
         super.viewDidAppear(animated)
     
         
+        
         if  defaults.boolForKey("Authorize") == false{
             welcomeUser.text = "Click AUTHORIZE Button"
             authorizeHDButton.hidden = false

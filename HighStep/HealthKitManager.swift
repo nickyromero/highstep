@@ -25,6 +25,7 @@ struct HealthKitManager {
     
     func setupHealthStoreIfPossible(completion: ((Bool, NSError!) -> Void)!) {
         
+        
         let stepType = HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)
 
         let typeSet: NSMutableSet = NSMutableSet()
@@ -68,6 +69,8 @@ struct HealthKitManager {
         
         var index = 0
         
+        
+        
         for challenge in updateChallenges {
             let startDate = challenge["startDate"] as! NSDate
             let endDate = challenge["endDate"] as! NSDate
@@ -93,5 +96,8 @@ struct HealthKitManager {
         }
 
     }
+    
+    
+    
     
 }

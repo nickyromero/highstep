@@ -49,8 +49,7 @@ class ChallengesViewController: UITableViewController {
             return
         }
             queryChallenges()
-       
-    }
+       }
     
     func queryChallenges() {
         var fromQuery = PFQuery(className: "Challenge")
