@@ -38,6 +38,7 @@ struct HealthKitManager {
                 HealthKitManager.updateAllSteps()
                 
                 completionHandler()
+                
         })
     }()
     

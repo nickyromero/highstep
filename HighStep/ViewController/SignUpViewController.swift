@@ -27,6 +27,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         self.usernameField.autocapitalizationType = UITextAutocapitalizationType.None
         self.emailField.becomeFirstResponder()
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -53,14 +55,17 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func signUpButton(sender: UIButton) {
         
-        var username = self.usernameField.text
+        var username = self.usernameField.text.lowercaseString
         var password = self.passwordField.text
         var email = self.emailField.text
         
         
-        if (count(username) < 1 || count(password) < 1 ){
+        
+        
+        
+        if (count(username) < 2 || count(username) > 12 || count(password) < 1 ){
             
-            var alert = UIAlertView(title: "Invalid", message: "Username must be greater than 1 & Password must be greater than 1 characters", delegate: self, cancelButtonTitle: "OK")
+            var alert = UIAlertView(title: "Invalid", message: "Username must be between 3-11 characters & Password must be greater than 1 characters", delegate: self, cancelButtonTitle: "OK")
             
             alert.show()
             self.usernameField.text = ""
@@ -106,9 +111,14 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
 
                 }
             })
+        
+        
         }
         
     }
+    
+    
+
 
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         self.view.endEditing(true)

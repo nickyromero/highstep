@@ -352,7 +352,7 @@
 						DevelopmentTeam = 7XVWUD53QB;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.HealthKit = {
 								enabled = 1;

@@ -28,8 +28,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         
         view.addSubview(self.actInd)
         
-        self.usernameField.becomeFirstResponder()
         self.usernameField.autocapitalizationType = UITextAutocapitalizationType.None
+        self.usernameField.becomeFirstResponder()
+        
         
         
     }
@@ -54,13 +55,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     
     @IBAction func loginButton(sender: UIButton) {
         
-        var username = self.usernameField.text
+        var username = self.usernameField.text.lowercaseString
         var password = self.passwordField.text
         
 
-        if (count(username) < 1 || count(password) < 1){
+        if (count(username) < 2 || count(password) < 1){
             
-            var alert = UIAlertView(title: "Invalid", message: "Username must be greater than 1 & Password must be greater than 1 characters", delegate: self, cancelButtonTitle: "OK")
+            var alert = UIAlertView(title: "Invalid", message: "Username must be greater than 2 & Password must be greater than 1 characters", delegate: self, cancelButtonTitle: "OK")
             alert.show()
             
         } else{
