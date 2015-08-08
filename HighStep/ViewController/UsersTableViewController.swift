@@ -23,6 +23,9 @@ class UsersTableViewController: UITableViewController, UITableViewDataSource, UI
         tableView.dataSource = self
         userSearchBar.delegate = self
         reloadChallengedUsers()
+        self.userSearchBar.autocapitalizationType = UITextAutocapitalizationType.None
+        
+        
         
     }
     func reloadChallengedUsers() {

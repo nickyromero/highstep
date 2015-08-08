@@ -33,21 +33,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  
         Parse.setApplicationId("o5Yo0n4HFvutcZpONHhHxyg5IY77anSLCnVEMLiQ", clientKey: "NqVWyXCydta3jKAYagPxI1nBf818OO7li8wApZFo")
         
+        let userNotificationTypes = (UIUserNotificationType.Alert |  UIUserNotificationType.Badge |  UIUserNotificationType.Sound);
+        
+        let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
+        application.registerUserNotificationSettings(settings)
+        application.registerForRemoteNotifications()
+        
+
         
         if let user = PFUser.currentUser() {
-            println("Log in successful")
-           
+            PFInstallation.currentInstallation()["user"] = user
+            PFInstallation.currentInstallation().saveInBackgroundWithBlock(nil)
             
             
         } else {
             println("No logged in user :(")
         }
 
-        
-        
+ 
         return true
     }
     
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        // Store the deviceToken in the current Installation and save it to Parse
+        let installation = PFInstallation.currentInstallation()
+        installation.setDeviceTokenFromData(deviceToken)
+        
+        if let user = PFUser.currentUser() {
+            installation["user"] = user
+            installation.saveInBackgroundWithBlock(nil)
+        } else {
+            println("No logged in user :(")
+        }
+        
+        installation.saveInBackgroundWithBlock(nil)
+        
+    }
+    
+    
+
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

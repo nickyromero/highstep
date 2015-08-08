@@ -42,6 +42,9 @@ class UsersTableViewCell: UITableViewCell {
                 
                 challenge.saveInBackgroundWithBlock { (success, error) -> Void in
                     if success {
+                        
+                        
+                        
                         println("saved")
                     self.backgroundColor = UIColor(red:  192/255, green: 31/255, blue: 41/255, alpha: 1)
                     self.textLabel?.textColor = UIColor.whiteColor()
@@ -49,7 +52,7 @@ class UsersTableViewCell: UITableViewCell {
                     var userNamed: String = self.userBeingChallenged!.objectForKey("username") as! String
                     self.textLabel?.text = "pending challenge against \(userNamed)!"
                     self.textLabel?.textAlignment = NSTextAlignment.Center
-                        
+                    
                         
                         
                     } else {

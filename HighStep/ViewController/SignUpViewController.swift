@@ -26,6 +26,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(self.actInd)
         
         self.usernameField.autocapitalizationType = UITextAutocapitalizationType.None
+        self.emailField.autocapitalizationType = UITextAutocapitalizationType.None
         self.emailField.becomeFirstResponder()
         
         
