@@ -257,8 +257,8 @@ extension ChallengesViewController: UITableViewDataSource {
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         header.contentView.backgroundColor = UIColor.whiteColor()
         
-        header.textLabel.textColor = UIColor(red: 192/255, green: 31/255, blue: 41/255, alpha: 1)
-        header.contentView.backgroundColor =  UIColor.whiteColor()
+        header.textLabel.textColor = UIColor.whiteColor()
+        header.contentView.backgroundColor = UIColor(red: 192/255, green: 31/255, blue: 41/255, alpha: 1)
         header.textLabel.font = UIFont(name: "SFUIDisplay-Thin", size: 15)!
         
     }
@@ -358,7 +358,30 @@ extension ChallengesViewController: UITableViewDataSource {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 4
     }
+    
+    
+//    
+//    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+//        return true
+//    }
+//    
+//    
+//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+//            // handle delete (by removing the data from your array and updating the tableview)
+//            var aChallenge : PFObject
+//            aChallenge.removeObject(<#object: AnyObject#>, forKey: <#String#>)
+//            
+//            
+//        
+//        }
+//    }
+    
 }
+
+
+
+
 
 public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
     return lhs === rhs || lhs.compare(rhs) == .OrderedSame

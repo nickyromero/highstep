@@ -53,8 +53,18 @@ class UsersTableViewCell: UITableViewCell {
                     self.textLabel?.text = "pending challenge against \(userNamed)!"
                     self.textLabel?.textAlignment = NSTextAlignment.Center
                     
+//                        
+//                        var userQuery: PFQuery = PFUser.query()!
+//                        userQuery.whereKey("objectId", equalTo: userBeingChallenged)
+//                        var query: PFQuery = PFInstallation.query()!
+//                        query.whereKey("currentUser", matchesQuery: userQuery)
+//                        
+//                        var push: PFPush = PFPush()
+//                        push.setQuery(query)
+//                        push.sendPushInBackgroundWithTarget(<#target: AnyObject!#>, selector: <#Selector#>)
                         
                         
+                      
                     } else {
                         println("\(error)")
                     }
