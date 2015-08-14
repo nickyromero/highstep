@@ -17,7 +17,8 @@ class ChallengesViewController: UITableViewController {
     var pendingChallenges: [PFObject] = []
     var toAcceptChallenges: [PFObject] = []
     var actInd: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
-
+    
+    @IBOutlet weak var addNewChallengeButton: UIBarButtonItem!
     
     func refresh(sender: UIRefreshControl){
         self.queryChallenges()
@@ -39,17 +40,25 @@ class ChallengesViewController: UITableViewController {
         self.actInd.activityIndicatorViewStyle  = UIActivityIndicatorViewStyle.Gray
         
         view.addSubview(self.actInd)
-
+        
     }
     
     override func viewDidAppear(animated: Bool) {
         
         if PFUser.currentUser() == nil{
+            addNewChallengeButton.enabled = false
+            
+            
             performSegueWithIdentifier("toSettings", sender: self)
+            
+            
             return
         }
-            queryChallenges()
-       }
+        addNewChallengeButton.enabled = true
+        queryChallenges()
+        self.tableView.reloadData()
+        
+    }
     
     func queryChallenges() {
         var fromQuery = PFQuery(className: "Challenge")
@@ -94,10 +103,13 @@ class ChallengesViewController: UITableViewController {
             } else{
                 // create a method to pass the single challenge into a check for completion
                 var endDate = challenge["endDate"] as! NSDate
-                var updatedAt = challenge.updatedAt!
+//                var updatedAt = challenge.updatedAt!
+                var fromUserUpdatedAt = challenge["fromUserUpdate"] as? NSDate
+                var toUserUpdatedAt = challenge["toUserUpdate"] as? NSDate
+
                 var fromUserStepCount = challenge["stepCountFromUser"] as? Int
                 var toUserStepCount = challenge["stepCountToUser"] as? Int
-                let challengeIsFinal: Bool = (endDate < NSDate()) && (updatedAt > endDate) && (toUserStepCount != nil)  && (fromUserStepCount != nil)
+                let challengeIsFinal: Bool = (endDate < NSDate()) && (toUserUpdatedAt > endDate) && (fromUserUpdatedAt > endDate)
                 
                 if (challengeIsFinal) {
                     // final - no more updating for these challenges
@@ -161,7 +173,9 @@ extension ChallengesViewController: UITableViewDataSource {
         
         let fromUser = aChallenge["fromUser"] as? PFUser
         let toUser = aChallenge["toUser"] as? PFUser
+        cell.selectionStyle = UITableViewCellSelectionStyle.Blue
         
+
         if  (PFUser.currentUser()?.username == fromUser?.username) {
             cell.challengeUser.text = "waiting for \(toUser!.username!) to accept!"
             
@@ -179,6 +193,9 @@ extension ChallengesViewController: UITableViewDataSource {
         let fromUser = aChallenge["fromUser"] as? PFUser
         let toUser = aChallenge["toUser"] as? PFUser
         
+        let toUserUpdate = aChallenge["toUserUpdate"] as? NSDate
+        let fromUserUpdate = aChallenge["fromUserUpdate"] as? NSDate
+        
         let stepCountFromUser = aChallenge["stepCountFromUser"] as? Int
         let stepCountToUser = aChallenge["stepCountToUser"] as? Int
         
@@ -186,6 +203,8 @@ extension ChallengesViewController: UITableViewDataSource {
         let formatter = NSDateFormatter()
         formatter.timeStyle = NSDateFormatterStyle.ShortStyle
         cell.endDate.text =  formatter.stringFromDate(endDate!)
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        
         
         if  (PFUser.currentUser()?.username == fromUser?.username) {
             
@@ -204,14 +223,19 @@ extension ChallengesViewController: UITableViewDataSource {
                 
                 cell.progressBar.setProgress(currentUserProgress, animated: true)
                 
-                if endDate < NSDate() && stepCountFromUser > stepCountToUser{
-                    cell.currentUser.text = "\(fromUser!.username!) 🏆"
-                    
-                } else if (endDate < NSDate() && stepCountFromUser < stepCountToUser){
-                    cell.challengeUser.text = "🏆 \(toUser!.username!)"
+                if endDate < NSDate() {
+                    if toUserUpdate > endDate {
+                        if stepCountFromUser > stepCountToUser{
+                            cell.currentUser.text = "\(fromUser!.username!) 🏆"
+                            
+                        } else if stepCountFromUser < stepCountToUser {
+                            cell.challengeUser.text = "🏆 \(toUser!.username!)"
+                        }
+                    } else {
+                        cell.stepCountChallengeUser.text = "????"
+                    }
                 }
             }
-            
         } else  {
             
             cell.currentUser.text = toUser?.username
@@ -224,15 +248,21 @@ extension ChallengesViewController: UITableViewDataSource {
             cell.stepCountChallengeUser.text = "\(stepFromString)"
             
             
-            if endDate < NSDate() && stepCountFromUser > stepCountToUser{
-                cell.challengeUser.text = "🏆 \(fromUser!.username!)"
-                
-                
-            } else if (endDate < NSDate() && stepCountFromUser < stepCountToUser){
-                cell.currentUser.text = "\(toUser!.username!) 🏆"
-                
+            if endDate < NSDate() {
+                if fromUserUpdate > endDate {
+                    if stepCountFromUser > stepCountToUser{
+                        cell.challengeUser.text = "🏆 \(fromUser!.username!)"
+                        
+                    } else if stepCountFromUser < stepCountToUser {
+                        cell.currentUser.text = "\(toUser!.username!) 🏆"
+                    }
+                } else {
+                    cell.stepCountChallengeUser.text = "????"
+                }
             }
-            
+        
+
+        
             if let stepCountFromUser = stepCountFromUser, let stepCountToUser = stepCountToUser {
                 let totalSteps = (stepCountFromUser + stepCountToUser)
                 var currentUserProgress = Float(stepCountToUser) / Float(totalSteps)
@@ -270,6 +300,8 @@ extension ChallengesViewController: UITableViewDataSource {
         let startDate = NSDate()
         let endDate = NSCalendar.currentCalendar().dateByAddingUnit(.CalendarUnitDay, value: 1, toDate: startDate, options: nil)
         var aChallenge : PFObject!
+        //        let fromUser: PFUser = aChallenge.objectForKey("fromUser") as! PFUser
+        
         
         if indexPath.section == 0{
             aChallenge = self.toAcceptChallenges[indexPath.row]
@@ -277,16 +309,38 @@ extension ChallengesViewController: UITableViewDataSource {
             aChallenge["startDate"] = startDate
             aChallenge["endDate"] = endDate!
             aChallenge["toUserHasAccepted"] = true
+            aChallenge["needFinalUpdate"] = true
             
-            
-            
+   
             aChallenge.saveInBackgroundWithBlock { (success, error) -> Void in
                 if success {
                     println("saved")
                     self.toAcceptChallenges.removeAtIndex(indexPath.row)
                     self.tableView.reloadData()
+                    
+                    
+                    let fromUser = aChallenge.objectForKey("fromUser") as! PFUser
+                    
+                    if let toUser = aChallenge.objectForKey("toUser")  as? PFUser {
+                        var query: PFQuery = PFInstallation.query()!
+                        query.whereKey("user", equalTo: fromUser)
+                        
+                        var push: PFPush = PFPush()
+                        push.setQuery(query)
+                        
+                        push.setMessage("\(toUser.username!) accepted your challenge!")
+                        
+                        
+                        push.sendPushInBackgroundWithBlock({
+                            (isSuccessful: Bool, error: NSError?) -> Void in
+                            println(isSuccessful)
+                        })
+                    }
+                    
                 } else {
                     println("\(error)")
+                    
+                    
                 }
             }
         }
@@ -360,24 +414,23 @@ extension ChallengesViewController: UITableViewDataSource {
     }
     
     
-//    
-//    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-//        return true
-//    }
-//    
-//    
-//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if (editingStyle == UITableViewCellEditingStyle.Delete) {
-//            // handle delete (by removing the data from your array and updating the tableview)
-//            var aChallenge : PFObject
-//            aChallenge.removeObject(<#object: AnyObject#>, forKey: <#String#>)
-//            
-//            
-//        
-//        }
-//    }
     
-}
+//        override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+//            return true
+//        }
+//    
+//    
+//        override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//            if (editingStyle == UITableViewCellEditingStyle.Delete) {
+//                // handle delete (by removing the data from your array and updating the tableview)
+//                var aChallenge : PFObject!
+//    
+//    
+//    
+//            }
+//        }
+    
+}   
 
 
 

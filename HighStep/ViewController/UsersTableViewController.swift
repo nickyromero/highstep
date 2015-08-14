@@ -23,13 +23,15 @@ class UsersTableViewController: UITableViewController, UITableViewDataSource, UI
         tableView.dataSource = self
         userSearchBar.delegate = self
         reloadChallengedUsers()
+       
         self.userSearchBar.autocapitalizationType = UITextAutocapitalizationType.None
-        
+       
         
         
     }
     func reloadChallengedUsers() {
         users = [PFUser]()
+      
         var fromQuery = PFQuery(className: "Challenge")
         fromQuery.whereKey("fromUser", equalTo: PFUser.currentUser()!)
         let toQuery = PFQuery(className: "Challenge")
@@ -62,9 +64,16 @@ class UsersTableViewController: UITableViewController, UITableViewDataSource, UI
                     }
                 }
                 self.tableView.reloadData()
+                if self.users.count == 0{
+                    var alertDisplay = UIAlertView(title: "Search for users to Challenge!", message: "Then users will remain in Recent Challengers", delegate: self, cancelButtonTitle: "OK")
+                    alertDisplay.show()
+                }
+                
             }
         }
 
+        
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -32,6 +32,31 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
         self.actInd.hidesWhenStopped = true
         self.actInd.activityIndicatorViewStyle  = UIActivityIndicatorViewStyle.Gray
         view.addSubview(self.actInd)
+        if  defaults.boolForKey("Authorize") == false{
+            welcomeUser.text = "Click AUTHORIZE Button"
+            authorizeHDButton.hidden = false
+            alert.text = "🚨"
+        } else{
+            alert.text = ""
+            self.authorizeHDButton.hidden = true
+            
+            
+            if PFUser.currentUser() != nil {
+                var user: String = PFUser.currentUser()!.username!
+                welcomeUser.text = "Welcome \(user)!"
+                loginOutlet.hidden = true
+                iDontHaveAccountOutlet.hidden = true
+                logoutOutlet.hidden = false
+                
+            } else{
+                welcomeUser.text = "Welcome!"
+                
+            }
+            
+        }
+
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -49,6 +74,9 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
             welcomeUser.text = "Click AUTHORIZE Button"
             authorizeHDButton.hidden = false
             alert.text = "🚨"
+            var alertDisplay = UIAlertView(title: "Give permission to read Step Count Data!", message: "HighStep integrates with the Health app", delegate: self, cancelButtonTitle: "OK")
+            alertDisplay.show()
+            
         } else{
             alert.text = ""
             self.authorizeHDButton.hidden = true
@@ -80,10 +108,14 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
     
     
     @IBAction func authorizeHealthData() {
+
         healthKitManager.setupHealthStoreIfPossible { (success:Bool, error: NSError!) -> Void in
     
             self.defaults.setBool(true, forKey: "Authorize")
+            self.defaults.synchronize()
             self.authorizeHDButton.hidden = true
+            
+            HealthKitManager.enableBackground()
 
         }
         self.alert.text = ""

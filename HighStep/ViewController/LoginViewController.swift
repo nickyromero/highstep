@@ -30,9 +30,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         
         self.usernameField.autocapitalizationType = UITextAutocapitalizationType.None
         self.usernameField.becomeFirstResponder()
-        
-        
-        
+
     }
     
     

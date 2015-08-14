@@ -310,8 +310,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="highstep👣" id="yzr-xv-0mv">
                         <barButtonItem key="backBarButtonItem" title="👣" id="aL8-sB-WAz"/>
-                        <barButtonItem key="leftBarButtonItem" title="🔩" width="5" id="Sbj-Ch-qau">
-                            <inset key="imageInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                        <barButtonItem key="leftBarButtonItem" image="Image" width="5" id="Sbj-Ch-qau">
                             <connections>
                                 <action selector="settingsButtonTapped:" destination="bx7-nh-UgX" id="UBv-c9-jDE"/>
                                 <segue destination="YnY-rV-Fcy" kind="show" identifier="toSettings" id="7eq-Vp-5yC"/>
@@ -329,6 +328,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
                     <connections>
+                        <outlet property="addNewChallengeButton" destination="tor-ND-DKu" id="Vwh-hT-BDN"/>
                         <outlet property="tableView" destination="KUj-SA-QNp" id="Fpw-Hl-ikq"/>
                     </connections>
                 </tableViewController>
@@ -611,8 +611,11 @@
             <point key="canvasLocation" x="3206" y="743"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Image" width="64" height="64"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fE9-4e-KAX"/>
+        <segue reference="kCd-hg-65j"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.69019607839999997" green="0.039215686270000001" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
 </document>

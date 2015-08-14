@@ -20,6 +20,7 @@ class UsersTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         // Initialization code
     }
 
@@ -42,6 +43,7 @@ class UsersTableViewCell: UITableViewCell {
                 
                 challenge.saveInBackgroundWithBlock { (success, error) -> Void in
                     if success {
+                     sender.userInteractionEnabled = false
                         
                         
                         
@@ -53,15 +55,24 @@ class UsersTableViewCell: UITableViewCell {
                     self.textLabel?.text = "pending challenge against \(userNamed)!"
                     self.textLabel?.textAlignment = NSTextAlignment.Center
                     
-//                        
-//                        var userQuery: PFQuery = PFUser.query()!
-//                        userQuery.whereKey("objectId", equalTo: userBeingChallenged)
-//                        var query: PFQuery = PFInstallation.query()!
-//                        query.whereKey("currentUser", matchesQuery: userQuery)
-//                        
-//                        var push: PFPush = PFPush()
-//                        push.setQuery(query)
-//                        push.sendPushInBackgroundWithTarget(<#target: AnyObject!#>, selector: <#Selector#>)
+                     
+                        
+                        var userQuery: PFQuery = PFUser.query()!
+                        userQuery.whereKey("username", equalTo: userNamed)
+                        var query: PFQuery = PFInstallation.query()!
+                        query.whereKey("user", matchesQuery: userQuery)
+                        
+                        var push: PFPush = PFPush()
+                        push.setQuery(query)
+                    
+                        push.setMessage("\(PFUser.currentUser()!.username!) challenged you!")
+                        push.sendPushInBackgroundWithBlock({
+                            (isSuccessful: Bool, error: NSError?) -> Void in
+                            println(isSuccessful)
+                        })
+                        
+                        
+                        
                         
                         
                       

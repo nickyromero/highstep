@@ -22,6 +22,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
+//        HealthKitManager.healthStore!.executeQuery(HealthKitManager.query)
+//        HealthKitManager.healthStore?.executeQuery(HealthKitManager.query)
+//        HealthKitManager.healthStore?.enableBackgroundDeliveryForType(HealthKitManager.stepType,
+//            frequency: .Immediate,
+//            withCompletion: {succeeded, error in
+//                
+//                if succeeded{
+//                    print("Enabled background delivery of step changes")
+//                } else {
+//                    if let theError = error{
+//                        print("Failed to enable background delivery of step changes. ")
+//                        print("Error = \(theError)")
+//                    }
+//                }
+////                HealthKitManager.completion(success, error)
+//                
+//                
+//        })
+        println("Print this for sure!!")
+        HealthKitManager.enableBackground()
+        
         UINavigationBar.appearance().barTintColor = UIColor.whiteColor()
         UINavigationBar.appearance().tintColor = UIColor(red:  192/255, green: 31/255, blue: 41/255, alpha: 1)
          
@@ -33,13 +54,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  
         Parse.setApplicationId("o5Yo0n4HFvutcZpONHhHxyg5IY77anSLCnVEMLiQ", clientKey: "NqVWyXCydta3jKAYagPxI1nBf818OO7li8wApZFo")
         
-        let userNotificationTypes = (UIUserNotificationType.Alert |  UIUserNotificationType.Badge |  UIUserNotificationType.Sound);
+        let userNotificationTypes = (UIUserNotificationType.Alert |  UIUserNotificationType.Badge |  UIUserNotificationType.Sound)
+        
+       
+
         
         let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
         
-
+        
+        
         
         if let user = PFUser.currentUser() {
             PFInstallation.currentInstallation()["user"] = user
@@ -50,9 +75,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             println("No logged in user :(")
         }
 
- 
+        
         return true
     }
+    
+
     
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
@@ -71,7 +98,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
+    func beginBackgroundUpdateTask() -> UIBackgroundTaskIdentifier {
+        return UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({})
+    }
     
+    func endBackgroundUpdateTask(taskID: UIBackgroundTaskIdentifier) {
+        UIApplication.sharedApplication().endBackgroundTask(taskID)
+    }
 
 
     func applicationWillResignActive(application: UIApplication) {
@@ -87,12 +120,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
 
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        UIApplication.sharedApplication().applicationIconBadgeNumber += 1
+        
+    }
+    
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        
+         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+      
     }
 
     func applicationWillTerminate(application: UIApplication) {
